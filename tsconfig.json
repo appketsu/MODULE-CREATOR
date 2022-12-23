@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+      "strict": true,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true,
+      "outDir": "./dist/",
+      "noImplicitAny": true,
+      "module": "amd",
+      "target": "es5",
+      "allowJs": true,
+      "moduleResolution": "node",
+      "sourceMap": true,
+      "allowSyntheticDefaultImports" : true,
+      "strictPropertyInitialization": false
+
+    },
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "display": "Recommended" 
+
+  }

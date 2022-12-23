@@ -1,0 +1,196 @@
+
+@use "./_variables.scss" as *;
+
+
+@mixin prepare-border() {
+    box-sizing: border-box;
+}
+
+@mixin pointer {
+   &:hover {
+    cursor: pointer;
+
+   }
+}
+
+
+@mixin border($line : 1) {
+    line-height: $line;
+    border: $border;
+    box-sizing: border-box;
+    border-bottom: 0px
+}
+
+
+@mixin media-between($min,$max) {
+    @if $min != xxl {
+        @media screen and (min-width: map-get($breakpoints,$min))  and (max-width:map-get($breakpoints,$max) ){
+            @content;
+        }
+    }
+} 
+
+
+@mixin media-up($breakpoint) {
+    @if $breakpoint != xxl {
+        @media screen and (min-width: map-get($breakpoints,$breakpoint)) {
+            @content;
+        }
+    }
+} 
+
+@mixin create-dissapear() {
+    @each $key, $value in $breakpoints{
+        .dissapear-#{$key} {
+            @include media-between($key,map-get($next-breakpoint,$key)) {
+                display: none;
+            }
+        }
+    }
+}
+
+
+
+@mixin create-base-classes() {
+    @each $key, $value in $m-colors{
+        .bg-#{"" + $key} {
+            background-color: $value;
+            background-image:  $value;
+        }
+
+        @media (hover: hover) {
+            .bg-#{"" + $key}-hover:hover {
+            background-color: $value;
+            background-image:  $value;
+        }}
+    }
+
+    @each $key, $value in $m-colors{
+        .tc-#{"" + $key} {
+            color: $value;
+        }
+
+        @media (hover: hover) {
+            .tc-#{"" + $key}-hover:hover {
+            color: $value;
+        }}
+    }
+
+
+
+
+    @each $key, $value in $text-weight{
+        .fw-#{$key} {
+            font-weight: $value;
+        }
+
+        @media (hover: hover) {
+            .fw-#{$key}-hover:hover {
+            font-weight: $value;
+        }}
+    }
+
+    @each $key, $value in $breakpoints{
+        @each $size, $value in $text-size{
+          
+            .fs-#{$size} {
+                font-size: $value;
+            }
+
+            @media (hover: hover) {
+                .fs-#{$size}-hover:hover {
+                font-size: $value;
+            }}
+
+        }
+    }
+
+    @each $type, $type-value in $border-type{
+        @each $color, $color-value in $border-color{
+            .border-#{$type}-#{ "" + $color} {
+                @include prepare-border();
+                border-color: $color-value;
+                border: $type-value $color-value;
+            }
+
+            @media (hover: hover) {
+                .border-#{$type}-#{ "" + $color}-hover:hover {
+                @include prepare-border();
+                border-color: $color-value;
+                border: $type-value $color-value;
+            }}
+        }
+    }
+
+
+
+    $padding-types: #{fourth-equal}, #{half-equal}, #{equal}, #{wider};
+
+    @each $key, $value in $breakpoints{
+        @each $types in $padding-types {
+            @include media-up($key) {
+                .elem-padding-#{ "" + $types} {
+                    $current : map-get($global-padding-elem, $key);
+                    @if $types == #{fourth-equal} {
+                        padding : calc($current / 4);
+                    }
+
+                    @if $types == #{half-equal} {
+                        padding : calc($current / 2);
+                    }
+                    @if $types == #{equal} {
+                        padding : $current;
+
+                    }
+
+                    @if $types == #{wider} {
+                        padding : calc($current / 2) $current calc($current / 2) $current;
+                    }
+                }
+                .elem-padding-#{ "" + $types}-wide-only {
+                    $current : map-get($global-padding-elem, $key);
+                    @if $types == #{fourth-equal} {
+                        padding : 0 calc($current / 4) 0 calc($current / 4);
+                    }
+
+                    @if $types == #{half-equal} {
+                        padding : 0 calc($current / 2) 0 calc($current / 2);
+                    }
+                    @if $types == #{equal} {
+                        padding : 0 $current 0 $current;
+
+                    }
+
+                }
+            }
+        }
+      
+    }
+
+
+    @each $key, $value in $breakpoints{
+        @include media-up($key) {
+            .vs {
+                height:  map-get($global-padding-layout, $key);
+                opacity: 0;
+            }
+
+            .vs2 {
+                height:  calc(map-get($global-padding-layout, $key) / 2);
+                opacity: 0;
+            }
+    
+            .hs {
+                width:  map-get($global-padding-layout, $key);
+                opacity: 0;
+            }
+
+            .hs2{
+                width:  calc(map-get($global-padding-layout, $key) / 2);
+                opacity: 0;
+            }
+        }
+    }
+
+
+}

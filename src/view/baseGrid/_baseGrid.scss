@@ -1,0 +1,139 @@
+
+@use "../../../css/_variables.scss" as *;
+
+@use "../../../css/_mixins.scss" as *;
+
+
+.test-grid {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: grid;
+    height: 100%;
+    width: 100%;
+    @include prepare-border();
+}
+
+.test-grid-element {
+    background-color: $c-primary;
+
+}
+
+
+
+
+.test-grid-v-separator {
+    background-color: $primary-border-color;
+    position: relative;
+    z-index: 5;
+        .separator-transparent {
+
+            position: absolute;
+            bottom: 0;
+            top: 0;
+            left: -4px;
+            right: -4px;
+            background-color: transparent;
+
+            .separator-hover{
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                width: 1px;
+                left: 50%;
+                -ms-transform: translateX(-50%);
+                transform: translateX(-50%);
+                background-color: transparent;
+            }
+
+
+            &:hover {
+                .separator-hover{
+                    background-color: $c-accent;
+                }            
+            }
+
+            .separator-hover-clicked{
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                width: 1px;
+                left: 50%;
+                -ms-transform: translateX(-50%);
+                transform: translateX(-50%);
+                background-color: $c-accent;
+                
+            }
+
+        }
+
+
+
+        .cursor:hover {
+            cursor: ew-resize;
+        }
+    
+    
+ 
+}
+
+.test-grid-h-separator {
+    background-color: $primary-border-color;
+    position: relative;
+    z-index: 5;
+
+        .separator-transparent {
+
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -4px;
+            top: -4px;
+            background-color: transparent;
+
+            .separator-hover{
+                position: absolute;
+                left: 0;
+                right: 0;
+                height: 1px;
+                top: 50%;
+                -ms-transform: translateY(-50%);
+                transform: translateY(-50%);
+                background-color: transparent;
+                
+                
+                
+            }
+
+
+            &:hover {
+                .separator-hover{
+                    background-color: $c-accent;
+                }            
+            }
+
+            .separator-hover-clicked{
+                position: absolute;
+                left: 0;
+                right: 0;
+                height: 1px;
+                top: 50%;
+                -ms-transform: translateY(-50%);
+                transform: translateY(-50%);
+                background-color: $c-accent;
+                
+                
+                
+            }
+
+        }
+
+
+
+        .cursor:hover{
+            cursor:  ns-resize;
+        }
+ 
+}

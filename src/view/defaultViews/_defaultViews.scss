@@ -1,0 +1,174 @@
+@use "../../../css/_variables.scss" as *;
+
+@use "../../../css/_mixins.scss" as *;
+
+
+
+.collection-view {
+    max-width: 100%;
+    max-height: 100%;
+    position: relative;
+}
+
+
+.notification-view {
+    background-color: transparent;
+    position: relative;
+    padding: $padding-elem;
+    padding-top: $padding-layout;
+    padding-bottom: 0;
+    .notification {
+        @include prepare-border();
+        display: grid;
+        grid-template-columns: 1fr;
+        
+        grid-auto-flow: row;
+        gap: $padding-elem;
+        padding: $padding-elem;
+     
+        border: $border;
+        border-left: 5px solid yellow;
+        }
+
+    .notification-title {
+        color: $t-primary;
+        font-size: map-get($map:$text-size  , $key: "subhead" );
+        font-weight: map-get($map:$text-weight  , $key: "medium" );
+    }
+
+
+    .notification-msg {
+        color: $t-secondary;
+        font-size: map-get($map:$text-size  , $key: "subhead" );
+        font-weight: map-get($map:$text-weight  , $key: "regular" );
+        line-height: 23px;
+
+    }
+
+
+}
+
+
+.cv-section-viewer {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    width: 1px;
+    background-color: $primary-border-color;
+    overflow-y: hidden;
+}
+
+.default-menu-selector-cell {
+    color: $t-secondary;
+
+    &:hover {
+        color: $t-primary;
+    }
+
+    font-size: map-get($map:$text-size  , $key: "subhead" );
+    font-weight: map-get($map:$text-weight  , $key: "regular" );
+
+    @include prepare-border();
+    border-right: $border;
+
+    padding-left: $padding-elem;
+    padding-right: $padding-elem;
+    position: relative;
+
+}
+
+
+.default-menu-selector-cell.selected {
+    color: $t-primary;
+
+
+    .selected-overflow {
+        position: absolute;
+        z-index: 2;
+        background-color: $c-primary;
+        left: 0;
+        right: 0;
+        bottom: -1px;
+        height: 2px;
+    }
+}
+
+.default-menu-selector-cell-2 {
+    color: $t-secondary;
+
+    &:hover {
+        color: $t-primary;
+    }
+
+    font-size: map-get($map:$text-size  , $key: "subhead" );
+    font-weight: map-get($map:$text-weight  , $key: "regular" );
+
+    padding-left: $padding-elem;
+    padding-right: $padding-elem;
+    position: relative;
+
+    color: $t-secondary;
+
+}
+
+.default-menu-selector-cell-2.selected {
+
+    @include prepare-border();
+    border-bottom: $border; 
+    border-color: $c-accent;
+    border-width: 4px;
+
+    color: $t-primary;
+
+}
+
+
+.default-dropdown-cell {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    padding: $padding-elem;
+    @include prepare-border();
+    border: $border;
+
+   
+    .title {
+        text-align: left;
+        font-size: map-get($map:$text-size  , $key: "subhead" );
+        font-weight: map-get($map:$text-weight  , $key: "regular" );
+    }
+
+
+}
+
+
+.view-state-manager {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto fit-content(300px);
+    grid-template-rows: 1fr;
+    grid-auto-flow: column;
+    gap: $padding-elem;
+    color: $t-primary;
+    font-size: map-get($map:$text-size  , $key: "subhead" );
+    font-weight: map-get($map:$text-weight  , $key: "regular" );
+    .button {
+        aspect-ratio: 1/1;
+        max-height: 100%;
+        position: relative;
+        @include pointer();
+        img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            filter: invert(81%) sepia(4%) saturate(28%) hue-rotate(322deg) brightness(84%) contrast(81%);
+            &:hover {
+                filter: invert(100%) sepia(100%) saturate(7%) hue-rotate(178deg) brightness(104%) contrast(100%);
+            }
+        }
+    }
+}
+
+    
+    
