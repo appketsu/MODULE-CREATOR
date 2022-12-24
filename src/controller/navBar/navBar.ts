@@ -36,7 +36,7 @@ export class NavBar extends GridElement implements ModuleManagerInterface {
             ev.stopImmediatePropagation();
             window.mApp.moduleManager.saveModuleToLocalStorage();
             window.mApp.moduleManager.exportModule();
-        })
+        });
     }
 
     moduleLoaded(): void {

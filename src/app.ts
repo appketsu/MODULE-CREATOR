@@ -19,7 +19,7 @@ import { NewProjectController } from './controller/popUpControllers/newProjectCo
 
 
 
-export default class App implements  AppInterface{
+export default class App implements AppInterface {
 
 
     views = new Map<string, View>(); // Holds all the active views references.
