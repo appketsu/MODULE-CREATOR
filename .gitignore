@@ -1,0 +1,17 @@
+
+# Ignore everything
+*
+
+# But not these files...
+!index.html
+!.nojekyll
+!CNAME
+dist/
+!dist/
+!dist/*
+css/styles.css
+!css/
+!css/styles.css
+
+
+!.gitignore
