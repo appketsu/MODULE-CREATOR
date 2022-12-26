@@ -6,12 +6,11 @@
 !index.html
 !.nojekyll
 !CNAME
-dist/
 !dist/
 !dist/*
-css/styles.css
 !css/
 !css/styles.css
-
+!images/
+!images/*
 
 !.gitignore
