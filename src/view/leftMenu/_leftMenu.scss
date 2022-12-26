@@ -410,3 +410,10 @@
 }
 
 
+.left-collection-view {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content auto;
+    grid-auto-flow: row;
+    overflow: auto;
+}

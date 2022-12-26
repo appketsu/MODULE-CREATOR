@@ -293,3 +293,13 @@ div {
 .display-none {
     display: none;
 }
+
+.v-separator {
+    width: 1px;
+    background-color:  $primary-border-color;
+}
+
+.h-separator {
+    height: 1px;
+    background-color:  $primary-border-color;
+}

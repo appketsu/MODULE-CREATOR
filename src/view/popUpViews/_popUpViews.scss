@@ -99,10 +99,9 @@
 
 .new-project-view {
     width: 400px;
-    height: 80px;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 20px 40px;
+    grid-template-rows: 20px 1px 30px;
     grid-auto-flow: row;
     @include prepare-border();
     border: $border;
@@ -110,34 +109,37 @@
     background-color: $c-secondary;
     padding: $padding-elem;
     gap: $padding-elem;
-    padding-bottom: 0px;
 
     .elements-holder {
         @include prepare-border();
-        border-top: $border;
+        //border-top: $border;
         position: relative;
         display: grid;
         grid-template-rows: 1fr;
-        grid-template-columns: auto min-content;
+        grid-template-columns: auto  min-content;
         grid-auto-flow: column;
         gap: $padding-elem;
-        
     }
 
+
+
     .create-button {
+        background-color: $c-secondary-dark;
+        padding-left: $padding-elem / 2;
+        padding-right: $padding-elem / 2;
+        border-radius: $radius;
         @include pointer();
-        font-size: map-get($map:$text-size  , $key: "subhead" );
-        font-weight: map-get($map:$text-weight  , $key: "regular" );
+        font-size: map-get($map:$text-size  , $key: "regular" );
+        font-weight: map-get($map:$text-weight  , $key: "medium" );
         color: $t-secondary;
         &:hover {
             color: $t-primary;
-
         }
     }
 
     input {
         background-color: transparent;
-        color: $t-primary;
+        color: $t-secondary;
         font-size: map-get($map:$text-size  , $key: "subhead" );
         font-weight: map-get($map:$text-weight  , $key: "regular" );
     }

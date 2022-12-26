@@ -1,20 +1,26 @@
 export const leftMenuViewerModuleCollectionView:string = `
 
-<div $id class="collection-view">
+<div $id  class="relative">
 
-    <div class="fill-absolute"> 
+    <div style="left: 15px" class="cv-section-viewer"> </div>
 
+    <div style="left: 30px" class="cv-section-viewer"> </div>
 
+    <div class="fill-absolute left-collection-view"> 
     
-        <div $idgrid class="collection-view">
+        <div class="fill-absolute"> 
 
-        <div style="left: 15px" class="cv-section-viewer"> </div>
+            <div $idgrid class="collection-view">
 
-        <div style="left: 30px" class="cv-section-viewer"> </div>
-
+            </div>
 
         </div>
 
+        <div class="bg-secondary" style="z-index:5"> </div>
+    
+    </div>
+
+ 
     
 </div>
 ` ;
