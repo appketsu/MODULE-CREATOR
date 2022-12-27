@@ -13,4 +13,6 @@
 !images/
 !images/*
 
+!Readme.md
+
 !.gitignore
