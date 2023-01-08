@@ -1,5 +1,6 @@
 
 # Ignore everything
+
 *
 
 # But not these files...
@@ -15,5 +16,9 @@
 
 !Readme.md
 !.gitignore
+
+
+
+
 
 
