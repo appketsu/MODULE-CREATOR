@@ -95,10 +95,12 @@ export class LeftMenuModuleViewCell extends UICollectionViewCell {
             */
             window.mApp.moduleManager.getModuleOptions()["selected"] = data.jsonId;
             let collectionView = this.getView(this.collectionViewId) as UICollectionView    
-            let top = collectionView.getScrollTop();
+            let top =  document.querySelector(`[${collectionView.id}] .left-collection-view`)?.scrollTop ?? 0;
             collectionView.updateCellsWithoutRedrawing();
             (window.mApp.views.get("CenterViewGridElementController") as CenterViewGridElementController).modulePartWasSelected(data.jsonId)
-            collectionView.setScrollTop(top);
+            if (document.querySelector(`[${collectionView.id}] .left-collection-view`)?.scrollTop != undefined) {
+                document.querySelector(`[${collectionView.id}] .left-collection-view`)!.scrollTop  = top
+            }
         })
 
         

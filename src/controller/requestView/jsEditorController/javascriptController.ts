@@ -71,6 +71,7 @@ export class JavascriptController extends View {
         if (!window.mApp.utils.isChrome()) {return this;}
 
         if (document.querySelector(`[${this.insertViewsDefault?.getTag() ?? ""}]`)?.scrollTop != undefined ) {
+            return this;
             // THIS SUCKS I KNOW. CUNT. Anwyways i didnt want to look on the documentation and since it doesnt load fully you cant scroll directly to the coordinates.
             // So! ill need to go through the documenatation of code mirror to find a better way to save the position of the code and scroll to it. 
             // If you want to contribute to this project this is the only thing i want anyone to do on MY code. 
