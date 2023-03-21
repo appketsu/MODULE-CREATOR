@@ -14,6 +14,8 @@ import { LeftMenuData, LeftMenuDataInterface } from "./interfaces";
 import View from "../../model/view/view";
 import { leftMenuDataset } from "./leftMenuData";
 import $ from "jquery";
+import { BottomStatusController } from "../bottomStatusBar/bottomStatusController";
+import { BaseGridController } from "../baseGrid/baseGridController";
 
 
 
@@ -97,7 +99,11 @@ export class LeftMenuGridElementController extends GridElement implements Resize
         }
 
         let subMenuView = this.getView(this.subMenu) as LeftMenuSubMenuController;
-        subMenuView!.parentResized(condition.name)
+        subMenuView?.parentResized(condition.name)
+        let bottomStatusBar = this.getView('bottomStatusBar') as BottomStatusController
+        bottomStatusBar?.updateWindowButtons()
+        
+        
     }
 
 
@@ -126,6 +132,19 @@ export class LeftMenuGridElementController extends GridElement implements Resize
         viewer.changeMenuView(selection);
     }
 
+    isClosed(): boolean {
+        return this.getSize().width <= 40
+    }
+
+    open(): void {
+        (window.mApp.views.get("baseGrid") as BaseGridController).setLeftMenuViewSize(350);
+    
+    }
+    
+    close(): void {
+        (window.mApp.views.get("baseGrid") as BaseGridController).setLeftMenuViewSize(40);
+
+    }
 
     finish() {
         this.mResizeObserver.finished();

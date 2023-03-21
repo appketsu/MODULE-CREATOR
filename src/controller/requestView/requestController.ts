@@ -31,12 +31,12 @@ export class RequestController extends View implements MenuSelectorInterface {
 
        
     }
-
+ 
 
     setUp(): this { 
         super.setUp();
 
-        let routeView = new RouteViewController(window.mApp.utils.makeId(15),this.jsonId);
+        let routeView = new RouteViewController("routeController",this.jsonId);
 
         this.insertNewView(new InsertedViewData(routeView.id));
 

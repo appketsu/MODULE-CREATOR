@@ -5,6 +5,6 @@ export  interface ResizeConditions {
   
 export  interface ResizeObserverInterface {
     resizeTriggered(condition:ResizeConditions):void;
-    resizeFinished(entry:void):void;
+    resizeFinished(entry: void):void;
     observerFinished?() : void
 }

@@ -9,7 +9,7 @@ import { viewBaseGridVSeparator } from "../../view/baseGrid/baseGridSeparatorVie
 import { viewBaseGridHtml } from "../../view/baseGrid/baseGridView";
 import { KetsuLogsViewerController } from "./ketsuLogsViewer";
 import { LogsViewerHolderController } from "./logsViewer/logsViewerHolderController";
-
+import $ from "jquery";
 
 
 export class LogsGridController extends GridJs {
@@ -29,6 +29,7 @@ export class LogsGridController extends GridJs {
     setUp() : this { 
 
         super.setUp()
+             $(`[${this.id}]`).css('overflow' , 'hidden')
 
             // create and add all the elements
             let elements : GridElement[] = [

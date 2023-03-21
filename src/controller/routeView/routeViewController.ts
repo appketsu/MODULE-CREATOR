@@ -11,6 +11,13 @@ import { LogsViewerHolderController } from "../logsView/logsViewer/logsViewerHol
 import { ConnectSocketController } from "../popUpControllers/connectSocketController";
 import {Spinner} from 'spin.js'
 import $ from "jquery";
+import { DropDown } from "../../model/dropDownMenu/dropDown";
+import { DefaultDropDownCell } from "../../model/dropDownMenu/dropDownCell";
+import { InsertedViewData } from "../../model/view/insertView";
+import { viewDropDownRequestType } from "../../view/centerViews/dataRequestControllerView";
+import { ElemModalDirection, ElementModalPos } from "../../model/elementModalView/elementModalView";
+import { viewDefaultDropDownCell } from "../../view/defaultViews/defaultDropDownCellView";
+import { WindowExecutor } from "../../model/module/windowExecutor";
 
 
 export class RouteViewController extends View implements ModuleManagerInterface,ModuleExecutionInterface {
@@ -59,7 +66,36 @@ export class RouteViewController extends View implements ModuleManagerInterface,
 
     setUp(): this {
         super.setUp();
+        
+        let moduleData = window.mApp.moduleManager.moduleMap.get(this.jsonId);
 
+
+        $(`[${this.id}] .sub-menu`).off().on('click' , (ev) => {
+            ev.stopPropagation();
+            ev.preventDefault();
+            return
+            let modal = new DropDown();
+
+            let dropDownCell = new DefaultDropDownCell("Execute in iframe",undefined,undefined,true,viewDefaultDropDownCell);
+            dropDownCell.viewWasInsertedCallback = (id) => {
+                $(`[${id}] .title`).addClass([ "fw-medium", "fs-callout", "tc-t-primary"])
+
+
+                $(`[${id}]`).addClass(["bg-accent-alpha","bg-accent-hover", "pointer" ])
+            }
+            modal.addCell(dropDownCell,(index,dropwDown) => {
+                WindowExecutor.executeFromModuleData(moduleData)
+                dropwDown.finish();
+            })
+            modal.insertInto( new InsertedViewData(undefined,"body"))
+           let frame = window.mApp.utils.getFrameFromElement(document.querySelector(`[${this.id}] .execute-button`)!)
+            modal.generalSetUp(0,0,  
+                ElementModalPos.center,
+                ElemModalDirection.bottom,
+                {x: frame.x,y : frame.y,width: frame.width + 30, height: 40}
+                );
+      
+        })
 
         $(`[${this.id}] .execute-button`).off().on('click' , (ev) => {
             ev.stopPropagation();
@@ -84,7 +120,6 @@ export class RouteViewController extends View implements ModuleManagerInterface,
 
         $(`[${this.id}] .route`).html("")
 
-        let moduleData = window.mApp.moduleManager.moduleMap.get(this.jsonId);
 
         // BUTTON
         if (window.mApp.utils.getNumberFromString(moduleData?.jsonPath[(moduleData?.jsonPath ?? []).length -1] ?? "") == undefined) {
@@ -93,6 +128,7 @@ export class RouteViewController extends View implements ModuleManagerInterface,
 
 
         this.updateButtonStatus()
+        this.showHideExtendButton();
 
         // ROUTE 
         let pathString = '<div class="r-text">$name</div>'
@@ -142,6 +178,30 @@ export class RouteViewController extends View implements ModuleManagerInterface,
                 this.startLoading()
                 break;
         }
+    }
+
+    showHideExtendButton() {
+        $(`[${this.id}] .route-view`).css({"grid-template-columns" : "auto  min-content 0px"})
+        return
+
+        let moduleData = window.mApp.moduleManager.moduleMap.get(this.jsonId);
+        let object = moduleData?.getObject();
+        console.log(object)
+        if (object?.javascriptConfig?.loadInWebView ?? false){
+            $(`[${this.id}] .route-view`).css({"grid-template-columns" : "auto  min-content 25px"})
+        } else {
+            $(`[${this.id}] .route-view`).css({"grid-template-columns" : "auto  min-content 0px"})
+        }
+        //if (options)
+
+        /*
+        .route-view {
+            display:  grid;
+            grid-auto-flow: column;
+            grid-template-columns: auto  min-content 25px;
+        */
+
+
     }
 
     startLoading() {

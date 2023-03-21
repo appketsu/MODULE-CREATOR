@@ -114,6 +114,14 @@ export default class View extends Base {
         "right": ``})
     }
 
+    addClickListener(callback: () => void) {
+        $(`[${this.id}]`).off().on('click', (ev) => {
+            ev.stopPropagation();
+            ev.preventDefault();
+            callback();
+        })
+    }
+
     setConstraints(frame: RectConstraints) {
         $(`[${this.id}]`).css({"position":"absolute",
         "top": `${frame.top ?? ""}`,

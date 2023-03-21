@@ -11,6 +11,7 @@ import { ModuleData } from "../../../model/module/moduleData";
 import { UICollectionVievSectionCell } from "../../../model/collectionView/collectionViewSectionCell";
 import { ModuleManagerInterface } from "../../../model/module/interfaces";
 import $ from "jquery";
+import { RouteViewController } from "../../routeView/routeViewController";
 
 
 export class RequestSettingsController extends View implements ModuleManagerInterface {
@@ -61,6 +62,7 @@ export class RequestSettingsController extends View implements ModuleManagerInte
                     //moduleOptions["async"] = false;
                 }
                 moduleObject.javascriptConfig.removeJavascript = selected;
+                (this.getView("routeController") as RouteViewController)?.showHideExtendButton();
                 this.setUp();
                 return true;
             }),
@@ -70,7 +72,7 @@ export class RequestSettingsController extends View implements ModuleManagerInte
                 if (selected) {
                     moduleObject.javascriptConfig.removeJavascript = false;
                 }
-
+                (this.getView("routeController") as RouteViewController)?.showHideExtendButton();
                 if (!selected) {
                     //moduleOptions["async"] = false;
                 }

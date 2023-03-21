@@ -22,6 +22,7 @@ export class MenuSelctor extends View implements UICollectionViewDatasource, UIC
     menuViews: string[] = [];
     interface?: MenuSelectorInterface;
     selectedView: string;
+    selectedViewName : string;
     layout: MenuSelectorLayout = new MenuSelectorLayout();
 
     constructor(id:string,views: string[],selected?:string, html: string = viewDefaultMenuSelector) {
@@ -84,6 +85,7 @@ export class MenuSelctor extends View implements UICollectionViewDatasource, UIC
             }
         }
     }
+
 
     // Collection view | Cells holder Delegates
 

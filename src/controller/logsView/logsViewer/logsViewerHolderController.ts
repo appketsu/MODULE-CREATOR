@@ -2,9 +2,12 @@ import GridElement from "../../../model/grid/gridElement";
 import { MenuSelctor, MenuSelectorInterface } from "../../../model/menuSelector/ menuSelector";
 import { MenuSelectorLayout2 } from "../../../model/menuSelector/menuSelectorLayout";
 import { LogsParser, LogsParserInterface } from "../../../model/SocketsServer/logsParser";
+import { WindowExecutor } from "../../../model/module/windowExecutor";
 import { InsertedViewData } from "../../../model/view/insertView";
 import View from "../../../model/view/view";
+import { ButtonView } from "../../../model/view/viewTemplates/buttonView";
 import { basicHtml } from "../../../view/defaultViews/basicHtml";
+import { buttonView } from "../../../view/defaultViews/buttonView";
 import { BaseGridController } from "../../baseGrid/baseGridController";
 import { CurrentLog } from "./currentLog";
 import { JSLogs } from "./jsLogs";
@@ -32,7 +35,7 @@ export class LogsViewerHolderController extends View implements MenuSelectorInte
 
 
     menuSelector : string;
-
+    loadInWindowButton : string;
 
 
     constructor(id: string = window.mApp.utils.makeId(), html: string = basicHtml) {
@@ -73,13 +76,55 @@ export class LogsViewerHolderController extends View implements MenuSelectorInte
 
         menuSelector.setConstraints({top:"0px",right : "0px", left: "0px",bottom: "0px"})
 
+        let buttonView = new ButtonView();
+        this.loadInWindowButton = buttonView.id;
+        this.insertNewView(new InsertedViewData(buttonView.id));
+
+        buttonView.setImage('internet.png');
+        buttonView.setConstraints({top:"0px",right : "0px",width : "40px", height: "40px"});
+        buttonView.addClickListener( () => {
+            let currentLog = LogsParser.shared.selectedLog;
+            if (currentLog == undefined) {    return } 
+            let content = LogsParser.shared.getLog(currentLog)?.content ?? "";
+            if (content == "") {return}
+            WindowExecutor.executeFromLog(content)
+
+        })
+        this.shouldDisplayLoadInWindow();
         return this;
     }
 
-
+    shouldDisplayLoadInWindow() {
+        let loadInWindowButton = this.getView(this.loadInWindowButton ?? "") as ButtonView
+        if (loadInWindowButton == undefined) {return}
+        let menuSelector = this.getView(this.menuSelector) as MenuSelctor;
+        if (menuSelector == undefined) {
+            loadInWindowButton.isHidden(true)
+            return
+        }
+        let viewName = this.getView(menuSelector.selectedView)?.viewName ?? "";
+        if (viewName != "Selected Log") {
+            loadInWindowButton.isHidden(true)
+            return
+        }
+        let currentLog = LogsParser.shared.selectedLog;
+        if (currentLog == undefined) {
+            loadInWindowButton.isHidden(true)
+            return
+        } 
+        let currentLogAction = LogsParser.shared.getLog(currentLog)?.action ?? "";
+        if (currentLogAction == 'Parsing Superficial Response' || currentLogAction == "Executing FixedHtml") {
+            loadInWindowButton.isHidden(false)
+        } else {
+            loadInWindowButton.isHidden(true)
+        }
+        // if its on selected log
+        // if the current log is either
+    }
 
 
     menuSelectorWasSelected(viewId: string): void {
+        this.shouldDisplayLoadInWindow();
         if (this.getSize().height == 40) {
             (window.mApp.views.get("baseGrid") as BaseGridController).setLogsViewSize(400);
         }
@@ -104,6 +149,7 @@ export class LogsViewerHolderController extends View implements MenuSelectorInte
 
     logSelected(): void {
         this.showCurrentLog();
+        this.shouldDisplayLoadInWindow();
     }
 
     finish(): void {

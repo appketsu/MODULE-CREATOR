@@ -1,7 +1,7 @@
 import { cond } from "lodash";
 import { UICollectionView } from "../../model/collectionView/collectionView";
 import { UICollectionViewCell } from "../../model/collectionView/collectionViewCell";
-import GridElement from "../../model/grid/gridElement";
+import GridElement, { GridElementWithView } from "../../model/grid/gridElement";
 import MRsesizeObserver from "../../model/ResizeObserver/mResizeObserver";
 import { ResizeConditions, ResizeObserverInterface } from "../../model/ResizeObserver/resizeObserverInterfaces";
 import { LogsParser, LogsParserInterface } from "../../model/SocketsServer/logsParser";
@@ -17,6 +17,7 @@ import { SectionCellController } from "../../model/settingCells/sectionCellContr
 import { SettingsCellController } from "../../model/settingCells/settingsCellController";
 import { LogsGridController } from "./logsGridController";
 import $ from "jquery";
+import { BottomStatusController } from "../bottomStatusBar/bottomStatusController";
 
 
 
@@ -172,6 +173,8 @@ export class KetsuLogsViewerController extends View implements ResizeObserverInt
     resizeTriggered(condition: ResizeConditions): void {
         this.currentConditionName = condition.name;
         this.updateButton();
+        let bottomStatusBar = this.getView('bottomStatusBar') as BottomStatusController
+        bottomStatusBar?.updateWindowButtons()
     }
 
 
@@ -211,6 +214,26 @@ class KetsuLogsCell extends LogsCellController{
             $(`[${this.id}]`).removeClass("selected")
         }
     }
+
+
+}
+
+
+export class KetsuLogsGridView extends GridElementWithView {
+
+open(): void {
+    (window.mApp.views.get("baseGrid") as BaseGridController).setLogsViewSize(350);
+
+}
+
+close(): void {
+    (window.mApp.views.get("baseGrid") as BaseGridController).setLogsViewSize(40);
+
+}
+
+isClosed(): boolean {
+    return this.getSize().height <= 40
+}
 
 
 }

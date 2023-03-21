@@ -26,6 +26,7 @@ export class CenterViewGridElementController extends GridElement implements Modu
         window.mApp.moduleManager.moduleViewsExecutor[this.id] = this;
 
         this.insertViewsDefault = new InsertedViewData(this.id,"$idviews");
+
     }
 
    viewTypes : CenterViewViewsIdentifier[] = [
@@ -43,7 +44,7 @@ export class CenterViewGridElementController extends GridElement implements Modu
 
     setUp(): this  {
         super.setUp();
- 
+        $(`[${this.id}]`).css('overflow' , 'hidden')
         return this;
     }
     

@@ -11,10 +11,15 @@ export const viewRoute : string = `
         </div>
    
         <div class="execute-button loading center-flex one-line"> 
-        <div class="spinner-holder"> </div> 
+            <div class="spinner-holder"> </div> 
             <div class="title">Execute Chapters</div> 
-        </div>
-     </div>
+         </div>
+         <div class="sub-menu center-flex">
+         
+         <img  src="./images/v-dots.png"">
+         </div> 
+
+    </div>
 
 </div>
 `

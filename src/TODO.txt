@@ -1,1 +1,11 @@
 
+- Add open in webview for logs and actual code.
+- Be able to rename request and sections.
+- Be able to add notes to the modules with markdown and edit them.
+- Save scroll top on editor.
+- Rework new and load, new be able to select the module type, load be able to load .txt .json, import from text and load from url.
+- When adding a new module add default code instead of the last one saved.
+
+OPEN IN IFRAME, SAVE THE LOGS AND READ THE ON THE CONSOLE.
+
+Open in new tab, this tab will have an iframe, and this iframe will load the url and inject the javascript.

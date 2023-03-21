@@ -203,7 +203,7 @@ export class Utils {
 
     getFrameFromElement(el: Element | String) : RectNumber {
       let parsed = $(el);
-       return {x: parsed.offset()?.left ?? 0, y: parsed.offset()?.top ?? 0 ,width : parsed.width() ?? 0,height: parsed.height() ?? 0}
+       return {x: parsed.offset()?.left ?? 0, y: parsed.offset()?.top ?? 0 ,width : parsed.outerWidth() ?? 0,height: parsed.outerHeight() ?? 0}
     }
 
 

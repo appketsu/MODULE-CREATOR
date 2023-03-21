@@ -28,6 +28,19 @@ export default class GridElement extends View  {
         $(`[${this.id}]`).css({'grid-column':`${position.column.from} / ${position.column.to}`,'grid-row':`${position.row.from} / ${position.row.to}`})
     }
 
+    open() {
+
+    }
+
+    close() {
+
+    }
+
+    isClosed() : boolean {
+        let size = this.getSize();
+        return size.height == 0 || size.width == 0
+    }
+
     finish(): void {
         super.finish();
     }

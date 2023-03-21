@@ -112,8 +112,7 @@
 
     display:  grid;
     grid-auto-flow: column;
-    grid-template-columns: auto  min-content;
-    gap: $padding-elem;
+    grid-template-columns: auto  min-content 25px;
     @include prepare-border();
     border-bottom: $border;
     overflow: hidden;
@@ -124,6 +123,22 @@
 
     }
 
+    .sub-menu {
+        background-color: $c-accent-alpha;
+        position: relative;
+        @include pointer();
+       @include prepare-border();
+       border-left: $border;   
+        &:hover {
+            background-color: $c-accent;
+        }
+        img {
+            max-height: 100%;
+            max-width: 100%;
+            filter: invert(98%) sepia(8%) saturate(263%) hue-rotate(195deg) brightness(111%) contrast(80%);
+
+        }
+    } 
 
 
     .route {

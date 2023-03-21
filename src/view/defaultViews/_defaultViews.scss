@@ -135,8 +135,7 @@
    
     .title {
         text-align: left;
-        font-size: map-get($map:$text-size  , $key: "subhead" );
-        font-weight: map-get($map:$text-weight  , $key: "regular" );
+
     }
 
 
@@ -172,3 +171,24 @@
 
     
     
+
+
+.button-view {
+
+    position: relative;
+    
+    img {
+        position: relative;
+        max-width: 100%;
+        max-height: 100%;
+        width: 20px;
+        height: 20px;
+    }
+
+    filter: invert(81%) sepia(4%) saturate(28%) hue-rotate(322deg) brightness(84%) contrast(81%);
+    &:hover {
+        filter: invert(100%) sepia(100%) saturate(7%) hue-rotate(178deg) brightness(104%) contrast(100%);
+        @include pointer();
+    }
+
+}
