@@ -13,6 +13,7 @@
   "dependencies": {
     "@codemirror/lang-javascript": "^6.1.1",
     "@rollup/plugin-node-resolve": "^15.0.1",
+    "@types/marked": "^4.0.8",
     "acorn": "^8.8.0",
     "acorn-import-assertions": "^1.8.0",
     "ajv": "^6.12.6",
@@ -51,6 +52,7 @@
     "loader-runner": "^4.3.0",
     "lodash": "^4.17.21",
     "lru-cache": "^6.0.0",
+    "marked": "^4.3.0",
     "merge-stream": "^2.0.0",
     "micromatch": "^4.0.5",
     "mime-db": "^1.52.0",

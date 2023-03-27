@@ -1559,6 +1559,10 @@ div {
   font-weight: 400;
 }
 
+.markdown {
+  line-height: 3rem;
+}
+
 @media screen and (min-width: 0rem) and (max-width: 40rem) {
   .dissapear-sm {
     display: none;

@@ -24,6 +24,9 @@
 
 @use "../src/view/popUpViews/popUpViews" as *;
 
+@use "./_markedjs.scss" as *;
+
+
 
 @include create-dissapear();
 
