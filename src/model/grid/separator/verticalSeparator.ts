@@ -10,7 +10,7 @@ import $ from "jquery";
 
 export default class GridSeparatorVertical extends GridSeparator {
     
-    constructor(id:string,html:string = viewBaseGridVSeparator,canResize:boolean = true) {
+    constructor(id?:string ,html:string = viewBaseGridVSeparator,canResize:boolean = true) {
         super(id,html,canResize)
     }
 

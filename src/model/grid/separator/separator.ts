@@ -21,7 +21,7 @@ export default  class GridSeparator extends GridElement implements GrabberObserv
     mGrabberObserver?: GrabberObserver;
 
     canResize:boolean;
-    constructor(id:string,html?:string,canResize:boolean = true) {
+    constructor(id:string | undefined,html?:string,canResize:boolean = true) {
         super(id,html)
         this.canResize = canResize;
     }

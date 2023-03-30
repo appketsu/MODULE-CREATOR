@@ -1,0 +1,23 @@
+@use "../../../css/_variables.scss" as *;
+
+@use "../../../css/_mixins.scss" as *;
+
+
+.right-grid-controller {
+
+
+
+
+}
+
+.markdown-holder {
+color: $t-primary;
+overflow: auto;
+position: relative;
+
+}
+
+.markdown {
+    padding: $padding;
+
+}

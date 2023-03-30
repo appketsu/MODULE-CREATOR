@@ -9,7 +9,7 @@ import $ from "jquery";
 
 export default class GridSeparatorHorizontal extends GridSeparator {
 
-    constructor(id:string,html:string = viewBaseGridHSeparator,canResize:boolean = true) {
+    constructor(id?:string,html:string = viewBaseGridHSeparator,canResize:boolean = true) {
         super(id,html,canResize)
     }
 

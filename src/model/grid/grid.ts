@@ -7,6 +7,7 @@ import { GridDesign, GridElementPosition } from "./gridInterfaces";
 import {FromToNumber} from "../interfaces";
 import GridSeparator from './separator/separator';
 import $ from "jquery";
+import { viewBaseGridHtml } from '../../view/baseGrid/baseGridView';
 
 interface GridInterface {
     
@@ -29,7 +30,7 @@ export default class GridJs extends View {
     gridElements : string[] = []; //
     gridDesing : GridDesign = {columns : [],rows : []};
 
-    constructor(id: string,html?: string ) {
+    constructor(id?: string ,html: string = viewBaseGridHtml ) {
         super(id,html)
     }
 

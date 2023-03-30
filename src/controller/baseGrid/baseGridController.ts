@@ -22,6 +22,7 @@ import { BottomStatusController } from "../bottomStatusBar/bottomStatusControlle
 import { NavBar } from "../navBar/navBar";
 import { KetsuLogsGridView } from "../logsView/ketsuLogsViewer";
 import { RightGridElementController } from "../rightController/RightGridController";
+import { viewRightGridController } from "../../view/rightViews/viewRightGridControllerView";
 export class BaseGridController extends GridJs {
 
     setUp(): this {
@@ -38,7 +39,7 @@ export class BaseGridController extends GridJs {
             new CenterViewGridElementController('CenterViewGridElementController',CenterGridElementControllerView),
             new GridSeparatorVertical('VS1',viewBaseGridVSeparator),
             new GridSeparatorVertical('VS2',viewBaseGridVSeparator,true),
-            new RightGridElementController('documentation',viewBaseGridElement),
+            new RightGridElementController('documentation',viewRightGridController),
             new GridSeparatorHorizontal('HS1',viewBaseGridHSeparator),
             new KetsuLogsGridView(new LogsGridController("logsGridController").id,"bottomLogs",undefined),
             new BottomStatusController('bottomStatusBar')

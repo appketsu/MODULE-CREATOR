@@ -61,6 +61,8 @@ interface Settings {
 	 * Text color inside gutter.
 	 */
 	gutterForeground: string;
+	
+
 }
 
 const createTheme = ({variant, settings, styles}: Options): Extension => {
@@ -70,6 +72,7 @@ const createTheme = ({variant, settings, styles}: Options): Extension => {
 			'&': {
 				backgroundColor: settings.background,
 				color: settings.foreground,
+
 			},
 			'.cm-content': {
 				caretColor: settings.caret,
@@ -105,7 +108,7 @@ const createTheme = ({variant, settings, styles}: Options): Extension => {
               },
               '.cm-tooltip-autocomplete ul li[aria-selected]': {
                 backgroundColor: "#3B3B3B",
-              },
+              }
 		},
 		{
 			dark: variant === 'dark',
