@@ -10,7 +10,7 @@ import { QuickDocController } from "./menuViewer/quickDoc/quickDocController";
 export const leftMenuDataset : LeftMenuData[] =  [
     {
         id: "module",
-        selected: false,
+        selected: true,
         subMenuCell: {
             viewId: "leftSubMenuModule",
             image: "./images/module.png",
@@ -55,7 +55,7 @@ export const leftMenuDataset : LeftMenuData[] =  [
     },
     {
         id: "moduleTutorials",
-        selected: true,
+        selected: false,
         subMenuCell: {
             viewId: "leftSubMenuTutorials",
             image: "./images/tutorial.png",
