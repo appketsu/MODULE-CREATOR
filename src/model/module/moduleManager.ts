@@ -9,6 +9,8 @@ import { Utils } from "../utils";
 import { SocketMessage, SocketMessageCallback } from "../SocketsServer/SocketsConnectionHandler";
 import { LogsParser, ModuleLogs } from "../SocketsServer/logsParser";
 import { ModuleJavascriptGenerator } from "./jsGenerator";
+import { LeftMenuSubMenuCellController } from "../../controller/leftMenu/subMenu/leftMenuSubMenuCellController";
+import { LeftMenuSubMenuController } from "../../controller/leftMenu/subMenu/leftMenuSubMenuController";
 
 export enum ModuleExecutionStatus {
     executing, 
@@ -38,7 +40,11 @@ export class ModuleManager {
 
         let defaultOptions : {[key:string] : any} = {
             "selected" : "",
-            "notes" : {},
+            "notesData" : {
+                "openedNotes" : ["oFwjzvDpdfxlaKQrGUwc"],
+                "activeNote" : "oFwjzvDpdfxlaKQrGUwc",
+                "notes" : {}
+            },
             "hideViews" : [],
             "id" : window.mApp.utils.makeId(15),
             "projectName" : "New Project"
@@ -133,7 +139,14 @@ export class ModuleManager {
     }
 
     loadNewModule(module:string, projectName:string | undefined = undefined) {
-
+        if (this.moduleObject != undefined) {
+            let subMenu = window.mApp.views.get("leftMenuSubMenu");
+            if (subMenu != undefined) {
+                (subMenu as LeftMenuSubMenuController)?.viewWasSelected("leftSubMenuModule")
+            }
+        }
+  
+        
         for (var s of this.moudleParsed) {
             s.finish();
         }
@@ -171,7 +184,7 @@ export class ModuleManager {
         
         var a = document.createElement('a');
         a.href        = url;
-        a.download    = `${options["projectName"] ?? "module"}.json`;
+        a.download    = `${(options["projectName"] ?? "module").replace(" ","")}.json`;
         
         document.body.appendChild(a);
 

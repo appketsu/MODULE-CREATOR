@@ -9,3 +9,9 @@
 OPEN IN IFRAME, SAVE THE LOGS AND READ THE ON THE CONSOLE.
 
 Open in new tab, this tab will have an iframe, and this iframe will load the url and inject the javascript.
+
+Rework Load and new project windows.
+Create Quick dock example note.
+Add export Module note button.
+Add functionality to searchbars for moudle note and left menus.
+If Module notes or right menu is empty add a view that says it.

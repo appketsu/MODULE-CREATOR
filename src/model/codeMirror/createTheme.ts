@@ -72,6 +72,7 @@ const createTheme = ({variant, settings, styles}: Options): Extension => {
 			'&': {
 				backgroundColor: settings.background,
 				color: settings.foreground,
+				"font-size" : "15px"
 
 			},
 			'.cm-content': {

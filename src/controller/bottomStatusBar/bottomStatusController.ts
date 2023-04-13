@@ -25,6 +25,13 @@ export class BottomStatusController extends GridElement implements  SocketsConne
     viewWasInserted(): void {
         super.viewWasInserted();
 
+        $(`[${this.id}] .github`).off().on( 'click',(ev) => {
+            ev.preventDefault();
+            ev.stopImmediatePropagation();
+            window.open("https://github.com/appketsu/MODULE-CREATOR", '_blank')?.focus();
+        })
+
+
         $(`[${this.id}] .sockets`).off().on( 'click',(ev) => {
             ev.preventDefault();
             ev.stopImmediatePropagation();
@@ -53,10 +60,11 @@ export class BottomStatusController extends GridElement implements  SocketsConne
     }
 
     updateWindowButtons() {
+        
         Object.keys(this.nameToViews).forEach((key) => {
             console.log(key)
             let view = this.getView(this.nameToViews[key]) as GridElement
-            console.log(view.getSize())
+            console.log($(`[${this.id}] [${key}] .connected-img`))
 
             if (view.isClosed()) {
                 
@@ -73,19 +81,20 @@ export class BottomStatusController extends GridElement implements  SocketsConne
 
     connectionEnabled(): void {
         $(`[${this.id}] .title`).text("Connected");
-        $(`[${this.id}] .bottom-status img`).attr("src",window.mApp.utils.getImageUrl("connected.png"))
+        $(`[${this.id}] .bottom-status .connected-img`).attr("src",window.mApp.utils.getImageUrl("connected.png"))
 
     }
 
     connectionFailed(): void {
         $(`[${this.id}] .title`).text("Disconnected");
-        $(`[${this.id}] .bottom-status img`).attr("src",window.mApp.utils.getImageUrl("disconnected.png"))
+        $(`[${this.id}] .bottom-status .connected-img`).attr("src",window.mApp.utils.getImageUrl("disconnected.png"))
     }
 
     finish(): void {
         delete window.mApp.sockets.socketsConnectionInterfaces[this.id];
         $(`[${this.id}] .sockets`).off()
         $(`[${this.id}] .window-icon`).off()
+        $(`[${this.id}] .github`).off()
         super.finish();
     }
 }

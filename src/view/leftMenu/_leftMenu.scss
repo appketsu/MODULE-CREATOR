@@ -303,7 +303,6 @@
     color: $t-secondary;
 
     &:hover {
-        color: $t-primary;
 
         .section-controller{
             img {
@@ -416,4 +415,115 @@
     grid-template-rows: min-content auto;
     grid-auto-flow: row;
     overflow: auto;
+}
+
+
+.module-notes {
+    background-color: $c-secondary;
+    font-size: map-get($map:$text-size  , $key: "subhead" );
+    position: relative;
+}
+
+.module-notes-cell {
+    @include prepare-border();
+    border-bottom: $border;
+    padding: $padding-elem;
+    position: relative;
+    font-size: map-get($map:$text-size  , $key: "subhead" );
+
+
+    .title {
+        color: $t-primary;
+        margin-bottom: $padding-elem;
+    }
+
+    .desc {
+        color: $t-secondary;
+        margin-bottom: $padding-elem;
+    }
+
+    .holder {
+        float: right;
+        background-color: $c-primary;
+        border-radius: $radius;
+        @include prepare-border();
+        border: $border;
+    }
+
+    .buttons-holder {
+        height: 30px;
+        display: grid;
+        grid-auto-flow: column;
+        grid-template-rows: 1fr;
+        grid-template-columns: min-content 1px 20px;
+        color: $t-secondary;
+        justify-content: end;
+        
+        .open-button {
+            padding-left: $padding-elem;
+            padding-right: $padding-elem;
+            @include pointer();
+            &:hover {
+                color: $t-primary;
+            }
+        }
+
+        .separator {
+            background-color: $primary-border-color;
+        }
+
+        .more-button {
+            position: relative;
+            @include pointer();
+            opacity: 0.6;
+            
+            img {
+            height: 20px;
+            width: 20px;
+            filter: invert(98%) sepia(8%) saturate(263%) hue-rotate(195deg) brightness(111%) contrast(80%);
+
+            }
+            &:hover {
+                opacity: 1;
+            }
+        } 
+    }
+}
+
+.search-bar {
+    position: relative;
+    @include prepare-border();
+    border-bottom: $border;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr 1px 40px;
+    grid-template-rows: 40px;
+    color: $t-secondary;
+    @include pointer();
+
+    .search-separator {
+        background-color: $primary-border-color;
+    }
+
+    .add-button {
+        position: relative;
+        &:hover {
+            background-color: $c-secondary-dark;
+        }
+
+        img {
+            height:50%;
+            width: 50%;
+            filter: invert(98%) sepia(8%) saturate(263%) hue-rotate(195deg) brightness(111%) contrast(80%);
+
+        }
+
+    }
+
+    input {
+        background-color: transparent;
+        padding-left: $padding-elem ;
+        padding-right: $padding;
+        color: $t-secondary;
+    }
 }

@@ -82,9 +82,9 @@
     background-color: $c-accent;
     display: grid;
     grid-template-rows: 1fr;
-    grid-template-columns: min-content auto;
+    grid-template-columns: min-content min-content;
+    justify-content: space-between;
     grid-auto-flow: column;
-    padding-right: $padding-elem;
     color: $t-primary;
 
     .sockets {
@@ -107,6 +107,21 @@
             filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(287deg) brightness(106%) contrast(102%);
         }
     }
+
+    .github {
+        padding-right: $padding-elem;       
+        position: relative;
+        padding-left: $padding-elem;
+        @include pointer();
+        &:hover {
+            background-color: $primary-border-color;
+        }
+        img {
+            width: 25px;
+            height: 25px;
+            filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(287deg) brightness(106%) contrast(102%);
+        }
+    } 
 }
 
 

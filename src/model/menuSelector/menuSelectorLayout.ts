@@ -23,7 +23,7 @@ export class MenuSelectorLayout {
         cv.layoutDesign.width = "100%"
         cv.layoutDesign.overflowY = "visible"
         cv.layoutDesign.overflowX = "visible"
-
+        cv.layoutDesign.extraStyles = {"display" :"flex","flex-flow" : "row nowrap"}
         return cv;
     }
 
@@ -44,6 +44,7 @@ export class MenuSelectorLayout {
     getCell(cv: UICollectionView, indexPath: IndexPath,menuViews: string[],selected:boolean) : UICollectionViewCell  {
         return new ModuleSelectorCell(indexPath,cv.id,
         menuViews[indexPath.item],selected,viewDefaultMenuSelectorCell);
+        
     }
 
 
@@ -55,7 +56,7 @@ export class MenuSelectorLayout {
         view.style({
             "line-height": "1",
             "box-sizing": "border-box",
-            "border-bottom" : "1px solid rgba(255,255,255,.1)"
+            "border-bottom" : "1px solid rgba(255,255,255,.1)",
         })
     }
 

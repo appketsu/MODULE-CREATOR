@@ -4,6 +4,7 @@ import { UICollectionViewCell } from "../collectionView/collectionViewCell";
 import { UICollectionVievSectionCell } from "../collectionView/collectionViewSectionCell";
 import { IndexPath, UICollectionViewDatasource, UICollectionViewDelegate, UICollectionViewSectionCellType, UICollectionViewFlowEnum } from "../collectionView/interfaces";
 import { RectConstraints } from "../interfaces";
+import { Utils } from "../utils";
 import { InsertedViewData } from "../view/insertView";
 import View from "../view/view";
 import { SelectionView } from "../view/viewTemplates/selectionView";
@@ -55,7 +56,6 @@ export class MenuSelctor extends View implements UICollectionViewDatasource, UIC
         this.layout.styleCellsHolder(cellsHolder);
         cellsHolder.setConstraints(this.layout.getCellsHolderConstraints())
         cellsHolder.reloadData();
-
     }
 
     setUpViewsHolder() {
@@ -65,12 +65,89 @@ export class MenuSelctor extends View implements UICollectionViewDatasource, UIC
         viewsHolder.setConstraints(this.layout.getViewsHolderConstraints());
     }
 
+
+
     selectByViewId(selected:string) {
         this.selectedView = selected;
         this.interface?.menuSelectorWasSelected(selected);
         let viewsHolder = this.getView(this.viewsHolderId) as ViewsHolder;
-        viewsHolder.showView(this.selectedView);
+        viewsHolder?.showView(this.selectedView);
         (this.getView(this.cellsHolderId) as UICollectionView).reloadData();
+    }
+
+    setViews(views: string[]) { // Removes views, leaves the views that were there and adds the new views.
+
+        var needToAddViews : string[] = window.mApp.utils.deepCopy(views)
+        var needToRemoveViews : string[] = []
+
+        for (var view of this.menuViews) {
+           if (!views.includes(view)) {
+            // needs to delete view
+                needToRemoveViews.push(view);
+            continue
+           }    
+           // remove views that were already there from needToAddViews
+           window.mApp.utils.deleteFromArray(needToAddViews.indexOf(view),needToAddViews)
+        }
+
+        needToAddViews.forEach((view) => {
+            // we add the views
+            this.addView(view,false)
+        })
+
+        needToRemoveViews.forEach((view) => {
+            // we remove the views
+
+            this.removeView(view,false)
+        })
+        this.reloadData()
+    }
+
+    addView(view:string,shouldReloadData:boolean = true) {
+        if (this.menuViews.includes(view)) {return}
+
+        let viewsHolder = this.getView(this.viewsHolderId) as ViewsHolder
+        
+        if (viewsHolder == undefined ) {
+            return
+        }
+        
+        // we add the view to the views holder
+        viewsHolder.addView(view)
+        // we add the view to the array
+        this.menuViews.push(view)
+
+        if (shouldReloadData) {
+            this.reloadData()
+        }
+
+    }
+    
+    removeView(view:string,shouldReloadData:boolean = true) {
+        if (!this.menuViews.includes(view)) {return}
+        // remove the view from the views holder
+        let viewsHolder = this.getView(this.viewsHolderId) as ViewsHolder
+        
+        if (viewsHolder == undefined ) {
+            return
+        }
+        
+        viewsHolder.removeView(view)
+        
+        // remove the view from the array
+        window.mApp.utils.deleteFromArray(this.menuViews.indexOf(view),this.menuViews)
+
+        if (shouldReloadData) {
+            this.reloadData()
+        }
+    }
+
+    reloadData() {
+        this.selectByViewId(this.selectedView)
+    }
+
+    reloadViewNames() {
+        (this.getView(this.cellsHolderId) as UICollectionView).updateCellsWithoutRedrawing();
     }
 
 
@@ -115,8 +192,8 @@ export class MenuSelctor extends View implements UICollectionViewDatasource, UIC
     }
 
     finish(): void {
-        super.finish();
         this.interface = undefined;
+        super.finish();
     }
 
 }

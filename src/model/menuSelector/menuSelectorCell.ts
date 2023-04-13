@@ -22,13 +22,24 @@ export class ModuleSelectorCell extends UICollectionViewCell {
 
     setUp() : this{
         super.setUp();
-        $(`[${this.id}] .one-line`).text(this.getView(this.menuSelectorViewId)?.viewName ?? "")
-
+        this.updateTitle()
         if (this.selected){
             $(`[${this.id}]`).addClass("selected")
 
         }
         return this;
     }   
+
+    updateTitle() {
+        let name = this.getView(this.menuSelectorViewId)?.viewName ?? ""
+        if (name == "") {name = "empty"}
+        $(`[${this.id}] .one-line`).text(name);
+
+
+    }
+
+    cellWasReloadedWithoutRedrawing(): void {
+        this.updateTitle()
+    }
 
 }

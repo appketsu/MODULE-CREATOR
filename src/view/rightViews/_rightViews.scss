@@ -21,3 +21,176 @@ position: relative;
     padding: $padding;
 
 }
+
+
+.md-tool-bar-holder {
+    position: absolute;
+    top: calc(($padding / 2.5) ) ;
+    left: calc(($padding / 2.5));
+    right: calc(($padding / 2.5));
+    height: calc(39px  - $padding / 2.5 * 2);
+}
+
+.md-tool-bar {
+    color: $t-primary;
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: end;
+    font-size: map-get($map:$text-size  , $key: "subhead" );
+    font-weight: map-get($map:$text-weight  , $key: "regular" );
+  
+    grid-template-columns: 
+    calc(40px  - $padding / 2.5 * 2)
+    1px
+    1fr
+    1px
+    calc(40px  - $padding / 2.5 * 2)
+    1px
+    calc(40px  - $padding / 2.5 * 2)
+    calc(40px  - $padding / 2.5 * 2)
+    calc(40px  - $padding / 2.5 * 2);
+
+    grid-template-rows: 1fr;
+    gap: calc(($padding / 2.5));
+
+    div {
+        position: relative;
+    }
+
+
+
+    .tb-border {
+        @include prepare-border();
+        border: $border;
+    } 
+
+    .active {
+        border-color: $c-accent;
+    }
+
+    .tb-close {
+        background-color: $c-secondary;
+        @include pointer();
+        border-radius: $radius;
+        opacity: 0.6;
+
+        img {
+            filter: invert(98%) sepia(8%) saturate(263%) hue-rotate(195deg) brightness(111%) contrast(80%);
+            height: 70%;
+            width: 70%;
+        }
+
+        &:hover {
+            opacity: 1;
+        }
+
+    }
+
+    .tb-button {
+        background-color: $c-secondary;
+        @include pointer();
+        border-radius: $radius;
+
+        img {
+            filter: invert(98%) sepia(8%) saturate(263%) hue-rotate(195deg) brightness(111%) contrast(80%);
+            width: 60%;
+            width: 60%;
+            opacity: 0.5;
+        }
+
+  
+
+        &:hover {
+            background-color: $c-secondary-dark;
+            opacity: 1;
+
+        }
+ 
+    }
+
+    .tb-separator {
+        background-color: $primary-border-color;
+        width: 1px
+    }
+    
+    .tb-scount {
+        @include prepare-border();
+        border-bottom: $border;
+        color: $t-secondary;
+        font-size: map-get($map:$text-size  , $key: "subhead" );
+        font-weight: map-get($map:$text-weight  , $key: "regular" );
+      
+    }
+
+    .tb-search {
+        @include prepare-border();
+        border-bottom : $border;
+
+        input {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+
+            background-color: transparent;
+            color: $t-primary;
+            text-align: center;
+
+        }
+    }
+}  
+
+
+.md-note-data {
+    position: absolute;
+    top: 39px;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    @include prepare-border();
+    border-top: $border; 
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content 1px auto;
+    padding: $padding;
+    gap: $padding / 2;
+
+
+    .tb-separator {
+        background-color: $primary-border-color;
+    }
+
+    input {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        background-color: transparent;
+        @include prepare-border();
+        border-top-color: transparent;
+        border-bottom-color: transparent;
+        color: $t-primary;
+        font-size: map-get($map:$text-size  , $key: "subhead" );
+        font-weight: map-get($map:$text-weight  , $key: "regular" );
+    }
+
+    textarea {
+        resize: none;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        background-color: transparent;
+        color: $t-secondary;
+        font-size: map-get($map:$text-size  , $key: "subhead" );
+        font-weight: map-get($map:$text-weight  , $key: "regular" );
+    }
+
+    .title {
+    }
+
+    .desc {
+
+        
+    }
+}

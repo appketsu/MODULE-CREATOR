@@ -1,9 +1,9 @@
 import { javascript, javascriptLanguage, scopeCompletionSource } from "@codemirror/lang-javascript";
 import { basicSetup, EditorView } from "codemirror";
-import { keymap} from "@codemirror/view"
 
 import { autocompletion} from "@codemirror/autocomplete";
 import {indentWithTab} from "@codemirror/commands"
+import { keymap} from "@codemirror/view"
 
 import { InsertedViewData } from "../../../model/view/insertView";
 import View from "../../../model/view/view";
@@ -48,7 +48,7 @@ export class JavascriptController extends View {
                 autocomplete: scopeCompletionSource(globalThis)
                 }),dracula,
             autocompletion({
-                icons : false
+                icons : false,
             }),
             EditorView.lineWrapping,
             keymap.of([indentWithTab]),

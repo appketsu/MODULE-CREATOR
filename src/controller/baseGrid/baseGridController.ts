@@ -21,7 +21,7 @@ import { LogsGridController } from "../logsView/logsGridController";
 import { BottomStatusController } from "../bottomStatusBar/bottomStatusController";
 import { NavBar } from "../navBar/navBar";
 import { KetsuLogsGridView } from "../logsView/ketsuLogsViewer";
-import { RightGridElementController } from "../rightController/RightGridController";
+import { RightGridElementController } from "../rightSide/RightGridController";
 import { viewRightGridController } from "../../view/rightViews/viewRightGridControllerView";
 export class BaseGridController extends GridJs {
 
@@ -69,7 +69,7 @@ export class BaseGridController extends GridJs {
             new GridElementDesign("1","px",false),
             new GridElementDesign("auto","",true,[],{min:600,max:99999999}),
             new GridElementDesign("1","px",false),
-            new GridElementDesign("0","px",true,[{resize: 0,range: {from:0,to:200}},{resize: 350,range: {from:200,to:350}}],{min:0,max:3000})], 
+            new GridElementDesign("500","px",true,[{resize: 0,range: {from:0,to:250}},{resize: 500,range: {from:250,to:500}}],{min:0,max:3000})], 
             rows : [new GridElementDesign("50","px",false),
             new GridElementDesign("1","px",false),
             new GridElementDesign("auto","",true,[],{min:350,max:99999999}),

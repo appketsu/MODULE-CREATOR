@@ -35,6 +35,20 @@ export class ViewsHolder extends View {
         return this;
     }
 
+    addView(view:string) {
+        if (this.availableViews.includes(view)) {return}
+        let current = this.getView(view)
+        this.insertNewView(new InsertedViewData(view))
+        current?.setConstraints({top: "0px",left:"0px",right:"0px",bottom:"0px"})
+    }
+
+    removeView(view:string) {
+        if (!this.availableViews.includes(view)) {return}
+        window.mApp.utils.deleteFromArray(this.availableViews.indexOf(view),this.availableViews);
+        let current = this.getView(view)
+        current?.finish()
+    }
+
 
     showView(id:string) {
         for (let x of this.availableViews) {

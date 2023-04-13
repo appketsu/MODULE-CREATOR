@@ -12,6 +12,8 @@
   "main": "webpack.config.js",
   "dependencies": {
     "@codemirror/lang-javascript": "^6.1.1",
+    "@codemirror/lang-markdown": "^6.1.0",
+    "@codemirror/language-data": "^6.2.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@types/marked": "^4.0.8",
     "acorn": "^8.8.0",

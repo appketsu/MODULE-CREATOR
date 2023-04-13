@@ -576,6 +576,10 @@
   .markdown-body table th {
     font-weight: 600;
   }
+
+  .markdown-body table thead tr {
+    background-color: $c-primary;
+  }
   
   .markdown-body table th,
   .markdown-body table td {

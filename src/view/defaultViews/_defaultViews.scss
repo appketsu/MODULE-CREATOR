@@ -60,9 +60,14 @@
 
 .default-menu-selector-cell {
     color: $t-secondary;
-
+    min-width: 50px;
+    text-align: left;
     &:hover {
         color: $t-primary;
+    }
+
+    .one-line {
+        overflow: hidden;
     }
 
     font-size: map-get($map:$text-size  , $key: "subhead" );
@@ -80,8 +85,7 @@
 
 .default-menu-selector-cell.selected {
     color: $t-primary;
-
-
+    min-width: min-content;
     .selected-overflow {
         position: absolute;
         z-index: 2;
@@ -95,9 +99,14 @@
 
 .default-menu-selector-cell-2 {
     color: $t-secondary;
+    min-width: 50px;
 
     &:hover {
         color: $t-primary;
+    }
+
+    .one-line {
+        overflow: hidden;
     }
 
     font-size: map-get($map:$text-size  , $key: "subhead" );
@@ -112,6 +121,7 @@
 }
 
 .default-menu-selector-cell-2.selected {
+    min-width: min-content;
 
     @include prepare-border();
     border-bottom: $border; 
@@ -192,3 +202,21 @@
     }
 
 }
+
+
+
+.empty-view {
+    position: relative;
+    color: $t-secondary;
+    font-size: map-get($map:$text-size  , $key: "title-2" );
+    font-weight: map-get($map:$text-weight  , $key: "semibold" );
+
+    .title {
+        text-align: center;
+        max-width: 90%;
+        overflow: hidden;
+    }
+}
+
+
+

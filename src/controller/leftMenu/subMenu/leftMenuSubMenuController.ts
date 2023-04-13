@@ -43,6 +43,7 @@ export class LeftMenuSubMenuController extends View implements SelectedViewInter
 
 
     viewWasSelected(view: String): void {
+        console.log(view)
         // we set all the other views to false except for the clicked one.
         let cells = this.leftMenuDataInterface?.getLeftMenuDataArrray();
         if (cells == undefined) {return;}

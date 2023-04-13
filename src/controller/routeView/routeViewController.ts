@@ -18,9 +18,10 @@ import { viewDropDownRequestType } from "../../view/centerViews/dataRequestContr
 import { ElemModalDirection, ElementModalPos } from "../../model/elementModalView/elementModalView";
 import { viewDefaultDropDownCell } from "../../view/defaultViews/defaultDropDownCellView";
 import { WindowExecutor } from "../../model/module/windowExecutor";
+import { KeyCodesInterface, KeyShortcuts, keyCodesManager } from "../../model/keyCodesShortcouts/keyCodesManager";
 
 
-export class RouteViewController extends View implements ModuleManagerInterface,ModuleExecutionInterface {
+export class RouteViewController extends View implements ModuleManagerInterface,ModuleExecutionInterface,KeyCodesInterface {
 
     jsonId : string = "";
     
@@ -49,6 +50,8 @@ export class RouteViewController extends View implements ModuleManagerInterface,
         this.jsonId = jsonId;
         window.mApp.moduleManager.moduleViewsExecutor[this.jsonId] = this;
         window.mApp.moduleManager.moduleExecutionInterfaces[this.id] = this;
+        keyCodesManager.shared.delegates[this.id] = this;
+
     }
 
 
@@ -66,10 +69,8 @@ export class RouteViewController extends View implements ModuleManagerInterface,
 
     setUp(): this {
         super.setUp();
-        
+
         let moduleData = window.mApp.moduleManager.moduleMap.get(this.jsonId);
-
-
         $(`[${this.id}] .sub-menu`).off().on('click' , (ev) => {
             ev.stopPropagation();
             ev.preventDefault();
@@ -100,20 +101,7 @@ export class RouteViewController extends View implements ModuleManagerInterface,
         $(`[${this.id}] .execute-button`).off().on('click' , (ev) => {
             ev.stopPropagation();
             ev.preventDefault();
-           if (!window.mApp.sockets.isConnected()) {
-            let popUp = PopUpView.showPopUpViewOnBody(new ConnectSocketController().id); 
-            return;
-           }
-
-           if (window.mApp.moduleManager.executionStatus == ModuleExecutionStatus.executing) {
-            window.mApp.moduleManager.cancelCurrentExecution();
-            return
-           }
-           
-           if ((window.mApp.views.get("LogsViewerHolderController") as LogsViewerHolderController).getSize().height == 40) {
-            (window.mApp.views.get("baseGrid") as BaseGridController).setLogsViewSize(400);
-           }
-           window.mApp.moduleManager.executeModule(this.getExecuteRoute())
+            this.didClickExecute()
 
         });
 
@@ -124,6 +112,8 @@ export class RouteViewController extends View implements ModuleManagerInterface,
         // BUTTON
         if (window.mApp.utils.getNumberFromString(moduleData?.jsonPath[(moduleData?.jsonPath ?? []).length -1] ?? "") == undefined) {
             $(`[${this.id}] .execute-button`).css({"display": "none"})
+            $(`[${this.id}] .sub-menu`).css({"display": "none"})
+
         }
 
 
@@ -147,6 +137,28 @@ export class RouteViewController extends View implements ModuleManagerInterface,
         $(`[${this.id}] .route`).html(finalHtml)
 
         return this;
+    }
+
+
+    didClickExecute() {
+        if (!window.mApp.sockets.isConnected()) {
+
+            let popUp = PopUpView.showPopUpViewOnBody(new ConnectSocketController(() => {
+                this.didClickExecute()
+            }).id); 
+            
+            return;
+           }
+
+           if (window.mApp.moduleManager.executionStatus == ModuleExecutionStatus.executing) {
+            window.mApp.moduleManager.cancelCurrentExecution();
+            return
+           }
+           
+           if ((window.mApp.views.get("LogsViewerHolderController") as LogsViewerHolderController).getSize().height == 40) {
+            (window.mApp.views.get("baseGrid") as BaseGridController).setLogsViewSize(400);
+           }
+           window.mApp.moduleManager.executeModule(this.getExecuteRoute())
     }
 
     updateButtonStatus() {
@@ -240,11 +252,19 @@ export class RouteViewController extends View implements ModuleManagerInterface,
         this.setUp();
     }
 
+    keyCombinationExecuted(shortcut: KeyShortcuts): void {
+        if (shortcut == KeyShortcuts.executeModule && !ConnectSocketController.socketsIsOnView) {
+            this.didClickExecute()
+        }
+    }
+
+
     finish(): void {
-       delete  window.mApp.moduleManager.moduleViewsExecutor[this.jsonId];
+        delete  window.mApp.moduleManager.moduleViewsExecutor[this.jsonId];
         delete window.mApp.moduleManager.moduleExecutionInterfaces[this.id];
         this.spinner?.stop();
         this.spinner = undefined;
+        delete keyCodesManager.shared.delegates[this.id]
         $(`[${this.id}] .execute-button`).off();
         super.finish()
     }

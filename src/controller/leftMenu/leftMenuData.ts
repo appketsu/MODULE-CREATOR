@@ -1,13 +1,16 @@
 import View from "../../model/view/view";
 import { LeftMenuData } from "./interfaces";
+import { ModuleNotesController } from "./menuViewer/moduleNotes/moduleNotesController";
+import { ModuleTutorialsController } from "./menuViewer/moduleTutorials/moduleTutorialsController";
 import { TestViewController } from "./menuViewer/moduleView/moduleCollectionViewController";
+import { QuickDocController } from "./menuViewer/quickDoc/quickDocController";
 
 
 
 export const leftMenuDataset : LeftMenuData[] =  [
     {
         id: "module",
-        selected: true,
+        selected: false,
         subMenuCell: {
             viewId: "leftSubMenuModule",
             image: "./images/module.png",
@@ -31,7 +34,7 @@ export const leftMenuDataset : LeftMenuData[] =  [
         subMenuViewer: {
             viewId: "leftMenuNotesView",
             createView() : View{
-                return new View("leftMenuNotesView",'<div $id class="left-menu-viewer-view"> $id </div> ')
+                return new ModuleNotesController("leftMenuNotesView")
             },
         }
     },
@@ -46,13 +49,13 @@ export const leftMenuDataset : LeftMenuData[] =  [
         subMenuViewer: {
             viewId: "leftMenuQuickDocView",
             createView() : View {
-                return new View("leftMenuQuickDocView",'<div $id class="left-menu-viewer-view"> $id </div> ')
+                return new QuickDocController("leftMenuQuickDocView")
             },
         }
     },
     {
         id: "moduleTutorials",
-        selected: false,
+        selected: true,
         subMenuCell: {
             viewId: "leftSubMenuTutorials",
             image: "./images/tutorial.png",
@@ -61,7 +64,7 @@ export const leftMenuDataset : LeftMenuData[] =  [
         subMenuViewer: {
             viewId: "leftMenuModuleTutorials",
             createView() : View {
-                return new View("leftMenuModuleTutorials",'<div $id class="left-menu-viewer-view"> $id </div> ')
+                return new ModuleTutorialsController("leftMenuModuleTutorials")
             },
         }
     },

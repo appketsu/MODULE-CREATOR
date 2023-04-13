@@ -40,7 +40,7 @@ export default class App implements AppInterface {
         if (window.mApp.moduleManager.getLocalStotrageModule() == undefined) {
             let newProjectView = new NewProjectController()
             newProjectView.disableExit();
-            let popUp = PopUpView.showPopUpViewOnBody(newProjectView.id,false); 
+            PopUpView.showPopUpViewOnBody(newProjectView.id,false).disableEscape(); 
         } else {
             this.moduleManager.loadNewModule(savedModule);
 

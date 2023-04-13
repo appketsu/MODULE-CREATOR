@@ -1,59 +1,92 @@
 import GridElement from "../../model/grid/gridElement";
 import View from "../../model/view/view";
 import { markdownView } from "../../view/rightViews/markdownView";
+import { MarkdownInterface } from "./markdownInterface";
 
 
 
 
-export class markdownViewer extends GridElement {
-
-    noteId : string
+export class MarkdownViewer extends GridElement {
 
 
-    constructor(id?: string ,html: string  = markdownView) {
+    delegate?: MarkdownInterface;
+
+    constructor(id?: string ,html: string  = markdownView,delegate?: MarkdownInterface) {
         super(id,html)
+        this.delegate = delegate;
         //this.noteId = noteId;
     }
 
-
     viewWasInserted(): void {
         super.viewWasInserted()
-        var hljs = require('highlight.js');
-
-        var md = require('markdown-it')({
-            html: true,
-            linkify: true,
-            typographer: true,
-            highlight: function (str : string, lang : string) {
-                if (lang && hljs.getLanguage(lang)) {
-                  try {
-                    return '<pre style="color:#A7A6A6;" class="hljs"><code>' +
-                           hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
-                           '</code></pre>';
-                  } catch (__) {}
-                }
-            
-                return '<pre style="color:#A7A6A6;" class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
-              }
-          });
-
-          var result = md.render(testingMarkdown);
-          let html = document.querySelector(`[${this.id}views]`)
-          if (html != undefined) {
-            html.innerHTML = result
-            html.querySelectorAll('a').forEach((el) => {
-                el.target = '_blank'
-            })
-          }
-          console.log(result)
-
+        this.udpateWithNoteText(this.delegate?.getNote()?.noteData ?? "")
     }
 
+    udpateWithNoteText(text:string) {
+      let mText = text;
+      if (mText == "") {
+        mText = `## This is the Note Viewer.
+- This note is empty, start editing the note on the Note Editor, you can toggle it by clicking on the pencil icon on the top right.
+
+- You can change the Note title and description clicking on the third button starting from the right.
+
+- If you make this window bigger, the Note editor will move from below to the side.
+
+- The format of the notes is Markdown, you can find a quick cheatsheet [here](https://devhints.io/markdown).
+        `
+      }
+      var hljs = require('highlight.js');
+
+      var md = require('markdown-it')({
+          html: true,
+          linkify: true,
+          typographer: true,
+          highlight: function (str : string, lang : string) {
+              if (lang && hljs.getLanguage(lang)) {
+                try {
+                  return '<pre style="color:#A7A6A6;" class="hljs"><code>' +
+                         hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
+                         '</code></pre>';
+                } catch (__) {}
+              }
+          
+              return '<pre style="color:#A7A6A6;" class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
+            }
+        });
+
+        md.renderer.rules.paragraph_open = md.renderer.rules.heading_open = this.injectLineNumbers;
+
+        var result = md.render(mText);
+        let html = document.querySelector(`[${this.id}views]`)
+        if (html != undefined) {
+          html.innerHTML = result
+          html.querySelectorAll('a').forEach((el) => {
+              el.target = '_blank'
+          })
+        }
+    }    
+
+    injectLineNumbers(tokens : any, idx : any, options : any, env : any, slf : any) {
+      var line;
+      if (tokens[idx].map && tokens[idx].level === 0) {
+        line = tokens[idx].map[0];
+        tokens[idx].attrJoin('class', 'line');
+        tokens[idx].attrSet('data-line', String(line));
+      }
+      return slf.renderToken(tokens, idx, options, env, slf);
+    }
+
+
+    finish(): void {
+      this.delegate = undefined;
+        super.finish()
+        
+    }
 
 }
 
 
-const testingMarkdown = `
+export const testingMarkdown = `
 __Advertisement :)__
 
 - __[pica](https://nodeca.github.io/pica/demo/)__ - high quality and fast image

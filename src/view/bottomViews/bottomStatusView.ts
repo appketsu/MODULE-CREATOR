@@ -7,12 +7,17 @@ export const bottomStatusBarView = `<div $id>
 
         <div class="bottom-status fill-absolute">
         
-            <div class="center-flex sockets"> <div class="center-flex"> <img src="./images/connected.png">  </div> <div class="one-line title">Connected</div> </div>
+            <div class="center-flex sockets"> 
+                <div class="center-flex">
+                    <img class="connected-img" src="./images/connected.png"> 
+                </div> 
+                <div class="one-line title">Connected</div>
+            </div>
 
         
 
-            <div class="logs">
-
+            <div class="github center-flex">
+                <img src="./images/github.png">
             </div>
         
         </div>

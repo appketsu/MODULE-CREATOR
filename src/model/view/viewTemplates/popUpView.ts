@@ -1,20 +1,24 @@
 import { basicHtml } from "../../../view/defaultViews/basicHtml";
 import { viewPopUp } from "../../../view/popUpViews/viewPopUpView";
 import { RectNumber } from "../../interfaces";
+import { KeyCodesInterface, KeyShortcuts, keyCodesManager } from "../../keyCodesShortcouts/keyCodesManager";
 import { InsertedViewData } from "../insertView";
 import View from "../view";
 import $ from "jquery";
 
 
 
-export class PopUpView extends View {
+export class PopUpView extends View implements KeyCodesInterface {
 
     view:string;
+
+    disableExitWithEscape : boolean = false
 
     constructor(view:string,id:string = window.mApp.utils.makeId(),html:string = viewPopUp) {
         super(id,html)
         this.setInsertDefaultViews();
         this.view = view;
+        keyCodesManager.shared.delegates[this.id] = this;
     }
 
     canExit = true;
@@ -48,6 +52,10 @@ export class PopUpView extends View {
         })
     }
 
+    disableEscape() : PopUpView {
+        this.disableExitWithEscape = true
+        return this
+    }
     
     static showPopUpViewOnBody(view:string,canExit:boolean = true): PopUpView {
     let pop = new PopUpView(view);
@@ -57,6 +65,12 @@ export class PopUpView extends View {
     pop.clipToParent()
     return pop;
     }
+
+    keyUp(key: string): void {
+        if (key == "Escape" && !this.disableExitWithEscape) {
+            this.finish();
+        }
+    }
     
 
     finish(): void {
@@ -65,9 +79,8 @@ export class PopUpView extends View {
         if (insertedV != undefined) {
             insertedV.viewWasFinishedCallback = undefined;
         }
-
-
+        delete keyCodesManager.shared.delegates[this.id];
         super.finish();
     }
 
-}
+}  

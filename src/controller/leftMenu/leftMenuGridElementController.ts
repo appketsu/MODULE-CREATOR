@@ -75,8 +75,6 @@ export class LeftMenuGridElementController extends GridElement implements Resize
         this.mResizeObserver.interface = this;
         this.mResizeObserver.triggerManually();
 
-        
-
         return this;
     }
     

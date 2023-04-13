@@ -46,7 +46,7 @@ export class ClickCellController extends UICollectionViewCell {
 
     finish() {
         $(`[${this.id}]`).off()
-    
+        this.didSelect = undefined
         super.finish();
     }
 

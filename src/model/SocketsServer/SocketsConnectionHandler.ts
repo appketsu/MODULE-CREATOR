@@ -142,7 +142,7 @@ export class SocketsConnectionHandler  {
     connectionTimerId : string;
     setUp(ip:string) {
         this.connectionFalied();
-
+        if (ip == "") {return}
         let timerId = window.mApp.utils.makeId();
         this.connectionTimerId = timerId;
         setTimeout(()=> {   
