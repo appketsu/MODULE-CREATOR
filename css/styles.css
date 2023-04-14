@@ -1883,7 +1883,7 @@ div {
   overflow: hidden;
   background: transparent;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  height: 0.25em;
+  height: 1px;
   padding: 0;
   margin: 24px 0;
   background-color: rgba(255, 255, 255, 0.1);
