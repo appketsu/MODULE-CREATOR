@@ -27,7 +27,7 @@
 @use "./_markedjs.scss" as *;
 @use "../src/view/rightViews/rightViews" as *;
 @use "./_dracula.scss" as *;
-
+@use "./monaco" as *;
 
 
 @include create-dissapear();

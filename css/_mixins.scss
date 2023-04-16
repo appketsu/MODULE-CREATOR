@@ -170,7 +170,7 @@
 
     @each $key, $value in $breakpoints{
         @include media-up($key) {
-            .vs {
+            .mvs {
                 height:  map-get($global-padding-layout, $key);
                 opacity: 0;
             }

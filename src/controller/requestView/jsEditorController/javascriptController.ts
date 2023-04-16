@@ -11,11 +11,13 @@ import { dracula } from "../../../model/codeMirror/dracula";
 import { javascriptControllerView } from "../../../view/centerViews/javascriptControllerView";
 import { ModuleData } from "../../../model/module/moduleData";
 import $ from "jquery";
+import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 
 
 export class JavascriptController extends View {
 
     editorView?: EditorView;
+    monacoEditor?: monaco.editor.IStandaloneCodeEditor;
     jsonId: string;
     moduleObject? : any;
 
@@ -28,7 +30,89 @@ export class JavascriptController extends View {
 
     viewWasInserted(): void {
         super.viewWasInserted()
-        this.setUp()
+        $(`[${this.id}]`).addClass('bg-primary');
+
+            setTimeout(() => {
+                this.setUpMonaco()
+            }, 50);
+          
+    }
+
+    setUpMonaco() {
+        //this.setUp()
+        let moduleData = window.mApp.moduleManager.moduleMap.get(this.jsonId) as ModuleData;
+        this.moduleObject = moduleData.getObject();
+        let js : string = this.moduleObject.javascriptConfig.javaScript;
+        if (js.split(/\n/g).length < 5) {
+            js = this.beautifyJs(js);
+            this.moduleObject.javascriptConfig.javaScript = js;
+        }
+
+        monaco.editor.defineTheme('my-theme', {
+            base: 'vs-dark', 
+            inherit: true,
+            rules: [],
+            colors: {
+                'editor.background': '#212221',
+                'scrollbar.shadow' : 'none',
+                'scrollbarSlider.background' : '#3B3B3B',
+                "scrollbarSlider.hoverBackground" : "#3B3B3B",
+                "scrollbarSlider.activeBackground" : "#3B3B3B"
+            }
+        })
+
+        this.monacoEditor = monaco.editor.create(document!.querySelector(`[${this.insertViewsDefault?.getTag()}]`)!, {
+            value: js,
+            language: 'javascript',
+            minimap: { enabled: false,scale: 0 },
+            automaticLayout : true,
+            theme: "my-theme",
+            fontSize: 15,
+            fontWeight : "400px",
+            lineNumbers: "on",
+            roundedSelection: false,
+            scrollBeyondLastLine: true,
+            readOnly: false,
+            wordWrap: 'on',
+            wrappingStrategy : 'advanced',
+            guides: {
+                indentation: false
+            },
+            scrollbar: {
+                // Subtle shadows to the left & top. Defaults to true.
+                useShadows: false,
+        
+                // Render vertical arrows. Defaults to false.
+                verticalHasArrows: false,
+                // Render horizontal arrows. Defaults to false.
+                horizontalHasArrows: false,
+        
+                // Render vertical scrollbar.
+                // Accepted values: 'auto', 'visible', 'hidden'.
+                // Defaults to 'auto'
+                vertical: "visible",
+                // Render horizontal scrollbar.
+                // Accepted values: 'auto', 'visible', 'hidden'.
+                // Defaults to 'auto'
+                horizontal: "hidden",
+        
+                verticalScrollbarSize: 7,
+                horizontalScrollbarSize: 7,
+                arrowSize: 30,
+            },
+
+        });
+
+        $('.decorationsOverviewRuler').css('width',0)
+        this.monacoEditor.onDidChangeModelContent( (e) => {
+            this.moduleObject.javascriptConfig.javaScript = this.monacoEditor?.getValue()
+
+        });
+
+        let options = moduleData.getOptions();
+
+        this.monacoEditor.revealLine(options["javascriptEditorScroll"] ?? 1)
+
     }
 
 
@@ -42,7 +126,6 @@ export class JavascriptController extends View {
             js = this.beautifyJs(js);
             this.moduleObject.javascriptConfig.javaScript = js;
         }
-
         this.editorView= new EditorView({
             extensions: [basicSetup, javascript(),javascriptLanguage.data.of({
                 autocomplete: scopeCompletionSource(globalThis)
@@ -137,9 +220,13 @@ export class JavascriptController extends View {
     finish(): void {
         let moduleData = window.mApp.moduleManager.moduleMap.get(this.jsonId) as ModuleData;
         if (moduleData != undefined) {
-            moduleData.getOptions()["javascriptEditorScroll"] = document.querySelector(`[${this.insertViewsDefault?.getTag() ?? ""}]`)!.scrollTop;
+            moduleData.getOptions()["javascriptEditorScroll"] = this.monacoEditor?.getVisibleRanges()[0].endLineNumber;
+            console.log(this.monacoEditor?.getVisibleRanges())
+            //debugger
         }
         this.editorView?.destroy();
+        this.monacoEditor?.dispose()
+        this.monacoEditor = undefined
         this.editorView = undefined;
         super.finish()
     }

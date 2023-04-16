@@ -2,6 +2,7 @@
 
 import App from "./app";    
 
+
 declare global {
     interface Window {
         mApp : App
