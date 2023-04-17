@@ -23,6 +23,9 @@ export class ConnectSocketController extends View implements SocketsConnectionIn
         this.connected = connected;
     }
 
+     sleep(ms : number) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
 
     spinner: Spinner;
     spinnerOptions  = {
@@ -45,9 +48,15 @@ export class ConnectSocketController extends View implements SocketsConnectionIn
 
     viewWasInserted(): void {
         super.viewWasInserted();
+        this.start()
+
+    }
+
+
+    async start() {
         ConnectSocketController.socketsIsOnView = true
-        $(`[${this.id}] input`).trigger("focus");
-     
+        $(`[${this.id}] input`).val(window.mApp.sockets.getCurrentIp());
+
 
         let stateManagerCont = new StateManagerController("App Connection",{finished : () => {
             this.finish();
@@ -60,14 +69,11 @@ export class ConnectSocketController extends View implements SocketsConnectionIn
         let ivd = new InsertedViewData(stateManagerCont.id, "$idstatemanager")
         this.insertNewView(ivd);
         stateManagerCont.clipToParent();
-        // alksdjfañlksdj
-    
-        if (window.mApp.sockets.connectionStatus == serverConnectionStatus.connected) {
-            this.connectionEnabled();
-        } else {
-            this.connectionFailed();
-        }
 
+        if (window.mApp.utils.isSafari()) {
+            await this.sleep(50)
+        }
+   
         $(`[${this.id}] .loading`).css({"display" : "none"})
 
         $(`[${this.id}] .connect-button`).off().on('click' , (ev) => {
@@ -80,7 +86,14 @@ export class ConnectSocketController extends View implements SocketsConnectionIn
             
         });
 
-        $(`[${this.id}] input`).val(window.mApp.sockets.getCurrentIp());
+        if (window.mApp.sockets.connectionStatus == serverConnectionStatus.connected) {
+            this.connectionEnabled();
+        } else {
+            this.connectionFailed();
+        }
+
+        $(`[${this.id}] input`).trigger("focus");
+
     }
 
 

@@ -75,6 +75,7 @@ export class JavascriptController extends View {
             readOnly: false,
             wordWrap: 'on',
             wrappingStrategy : 'advanced',
+            fixedOverflowWidgets: true,
             guides: {
                 indentation: false
             },

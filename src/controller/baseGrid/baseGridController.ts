@@ -34,15 +34,16 @@ export class BaseGridController extends GridJs {
         let elements : GridElement[] = [
             new NavBar('mainNavBar'),
             new LeftMenuGridElementController('leftMenuGridEl',leftMenuGridElView),
+            new RightGridElementController('documentation',viewRightGridController),
+            new KetsuLogsGridView(new LogsGridController("logsGridController").id,"bottomLogs",undefined),
+            new BottomStatusController('bottomStatusBar'),
             new GridSeparatorVertical('VS4',viewBaseGridVSeparator),
             new GridSeparatorVertical('VS3',viewBaseGridHSeparator,false),
-            new CenterViewGridElementController('CenterViewGridElementController',CenterGridElementControllerView),
             new GridSeparatorVertical('VS1',viewBaseGridVSeparator),
             new GridSeparatorVertical('VS2',viewBaseGridVSeparator,true),
-            new RightGridElementController('documentation',viewRightGridController),
             new GridSeparatorHorizontal('HS1',viewBaseGridHSeparator),
-            new KetsuLogsGridView(new LogsGridController("logsGridController").id,"bottomLogs",undefined),
-            new BottomStatusController('bottomStatusBar')
+            new CenterViewGridElementController('CenterViewGridElementController',CenterGridElementControllerView),
+
         ]
 
     
