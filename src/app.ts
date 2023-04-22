@@ -16,6 +16,7 @@ import { ConnectionChecker } from './model/SocketsServer/connectionChecker';
 import { AutoSave } from './model/module/autoSave';
 import { PopUpView } from './model/view/viewTemplates/popUpView';
 import { NewProjectController } from './controller/popUpControllers/newProjectController';
+import { NewLoadProjectController } from './controller/popUpControllers/newLoadProject/newLoadProjectController';
 
 
 
@@ -38,9 +39,8 @@ export default class App implements AppInterface {
         let savedModule = this.moduleManager.getLocalStotrageModule() ?? this.moduleManager.getDefaultModule();
 
         if (window.mApp.moduleManager.getLocalStotrageModule() == undefined) {
-            let newProjectView = new NewProjectController()
-            newProjectView.disableExit();
-            PopUpView.showPopUpViewOnBody(newProjectView.id,false).disableEscape(); 
+            PopUpView.showPopUpViewOnBody(new NewLoadProjectController(undefined,"New",false).id,false).disableEscape(); 
+
         } else {
             this.moduleManager.loadNewModule(savedModule);
 
@@ -50,6 +50,7 @@ export default class App implements AppInterface {
         this.sockets.setUp(this.sockets.getCurrentIp());
         AutoSave.shared.start();
         
+
         //this.configApp()
         //new TestModalView(undefined,undefined).setUp();
 

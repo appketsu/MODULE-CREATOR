@@ -4,6 +4,7 @@ import { ConnectSocketController } from "../popUpControllers/connectSocketContro
 import $ from "jquery";
 import { ModuleManagerInterface } from "../../model/module/interfaces";
 import { NewProjectController } from "../popUpControllers/newProjectController";
+import { NewLoadProjectController } from "../popUpControllers/newLoadProject/newLoadProjectController";
 
 
 
@@ -28,39 +29,19 @@ export class LeftMenuTopController extends View implements ModuleManagerInterfac
         $(`[${this.id}] .new-button`).off().on('click',  (ev) => {
             ev.preventDefault();
             ev.stopImmediatePropagation();
-            let popUp = PopUpView.showPopUpViewOnBody(new NewProjectController().id); 
-            popUp.clipToParent()
+            PopUpView.showPopUpViewOnBody(new NewLoadProjectController(undefined,"New",).id); 
         })     
         $(`[${this.id}] .load-button`).off().on( 'click', async (ev) => {
             ev.preventDefault();
             ev.stopImmediatePropagation();
-            let file: File | undefined = await this.selectFile("application/json" ,false) as File
-            window.mApp.moduleManager.loadNewModule(await file.text());
+            PopUpView.showPopUpViewOnBody(new NewLoadProjectController(undefined,"Load File").id); 
+
         })     
         
         $(`[${this.id}] .p-name .center-v-absolute`).text(window.mApp.moduleManager.getModuleOptions()["projectName"])
         return this;
     }
 
-    async selectFile (contentType: string, multiple: boolean){
-        return new Promise(resolve => {
-            let input = document.createElement('input') as HTMLInputElement;
-            input.type = 'file';
-            input.multiple = multiple;
-            input.accept = contentType;
-    
-            input.onchange = _ => {
-                let files = Array.prototype.slice.call(input.files);
-
-                if (multiple)
-                    resolve(files);
-                else
-                    resolve(files[0]);
-            };
-    
-            input.click();
-        });
-    }
     
     moduleLoaded(): void {
         // This will load the current selection as a new view.

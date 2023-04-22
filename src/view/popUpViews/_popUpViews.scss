@@ -1,4 +1,4 @@
-@use "../../../css/_variables.scss" as *;
+ @use "../../../css/_variables.scss" as *;
 
 @use "../../../css/_mixins.scss" as *;
 
@@ -199,3 +199,166 @@
         }
     }
 } 
+
+.new-load-project {
+    min-width: 500px;
+    min-height: 225px;
+    background-color: $c-secondary;
+    @include prepare-border();
+    border: $border;
+    border-radius: $radius;
+
+
+    .close {
+        z-index: 10;
+        position: absolute;
+        right: $padding-elem;
+        top: $padding-elem;
+        width: 20px;
+        height: 20px;
+        @include pointer(); 
+        filter: invert(81%) sepia(4%) saturate(28%) hue-rotate(322deg) brightness(84%) contrast(81%);
+        
+        &:hover {
+            filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(287deg) brightness(106%) contrast(102%);
+
+        }
+    } 
+}
+
+.npw-holder {
+    background-color: $c-secondary;
+    color: $t-secondary;
+    .npw {
+        position: absolute;
+        left: $padding-elem;
+        top: $padding-elem;
+        right: $padding-elem;
+        bottom: $padding-elem;
+        display: grid;
+        grid-auto-flow: row;
+        grid-template-columns: 1fr;
+        grid-template-rows: 40px 1px min-content ;
+        gap: $padding;
+        align-content: center;
+    }
+
+
+
+    .s-separator {
+        background-color: $primary-border-color;
+        position: relative;
+        .title {    
+            font-size: map-get($map:$text-size  , $key: "caption-1" );
+            font-weight: map-get($map:$text-weight  , $key: "regular" );
+            position: absolute;
+            top: 0px;
+            left: $padding-elem;
+            transform: translate(0, -50%);
+            background-color: $c-secondary;
+            padding-left: $padding-elem;
+            padding-right: $padding-elem;
+          }
+    }
+
+    .module-type {
+        background-color: $c-secondary;
+        width: min-content;
+        padding-left: 0px;
+        padding-right: $padding-elem;
+        height: 30px;
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: min-content;
+        grid-template-rows: 1fr;
+        gap: $padding-elem;
+
+        .option-type {
+            @include prepare-border();
+            border: $border;
+            height: 25px;
+            padding-left: $padding-elem;
+            padding-right: $padding-elem;
+            @include pointer(); 
+
+            &:hover {
+                border-color: $c-accent;
+            }
+        }
+
+        .selected {
+            @include prepare-border();
+            border-color: $c-accent;
+        }
+    }
+
+  
+
+    .create-button {
+        background-color: $c-secondary-dark;
+        width: min-content;
+        height: 30px;
+        color: $t-secondary;
+        padding-left: $padding-elem;
+        padding-right: $padding-elem;
+        @include prepare-border();
+        //border: $border;
+        color: $t-secondary;
+       @include pointer();
+        border-radius: $radius;
+        &:hover {
+            color: $t-primary;
+           // border: $border;
+
+        }
+    }
+
+}
+
+.load-file {
+
+background-color: $c-secondary;
+position: relative;
+color: $t-secondary;
+font-size: map-get($map:$text-size  , $key: "title-2" );
+font-weight: map-get($map:$text-weight  , $key: "semibold" );
+@include pointer()
+
+}
+
+
+.load-file-url-holder {
+    background-color: $c-secondary;
+
+    .load-file-url {
+        position: absolute;
+        left: $padding-elem;
+        right: $padding-elem;
+        bottom: $padding-elem;
+        top: $padding-elem;
+        display: grid;
+        grid-auto-columns: 1fr;
+        grid-template-rows: 40px;
+        align-content: center;
+    }
+
+    .input-grid { 
+        position: absolute;
+        display: grid;
+        grid-auto-flow: column;
+        grid-template-columns: 1fr min-content;
+        grid-template-rows: 1fr;
+
+        .input-button {
+            background-color: $c-secondary-dark;
+            padding-left: $padding-elem;
+            padding-right: $padding-elem;
+            @include pointer();
+
+            &:hover {
+                color: $t-primary;
+            }
+        }
+    }
+
+}

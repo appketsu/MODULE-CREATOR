@@ -294,13 +294,41 @@ div {
 }
 
 .v-separator {
-    width: 0.1rem;
+    width: 1px;
     background-color:  $primary-border-color;
 }
 
 .h-separator {
-    height: 0.1rem;
+    height: 1px;
     background-color:  $primary-border-color;
+}
+
+.special-input-holder {
+  @include prepare-border();
+  border: $border;
+  position: relative;
+  color: $t-secondary;
+
+  .title {
+    font-size: map-get($map:$text-size  , $key: "caption-1" );
+    font-weight: map-get($map:$text-weight  , $key: "regular" );
+    position: absolute;
+    top: 0px;
+    left: $padding-elem;
+    transform: translate(0, -50%);
+    background-color: $c-secondary;
+    padding-left: $padding-elem;
+    padding-right: $padding-elem;
+  }
+  input {
+    background-color: transparent;
+    padding-left: $padding-elem;
+    padding-right: $padding-elem;
+    padding-top: 3px;
+    color: $t-primary;
+    font-size: map-get($map:$text-size  , $key: "subhead" );
+    font-weight: map-get($map:$text-weight  , $key: "regular" );
+  }
 }
 
 @keyframes spinner-line-fade-more {
@@ -343,3 +371,5 @@ div {
   }
 
   
+
+

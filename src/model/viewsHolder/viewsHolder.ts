@@ -2,7 +2,9 @@ import { viewDefaultViewsHolder } from "../../view/defaultViews/defatulViewsHold
 import { InsertedViewData } from "../view/insertView";
 import View from "../view/view";
 
-
+export interface ViewsHolderViewInterface {
+    isOnTopViewsHolder : boolean
+}
 
 export class ViewsHolder extends View {
 
@@ -52,10 +54,17 @@ export class ViewsHolder extends View {
 
     showView(id:string) {
         for (let x of this.availableViews) {
+            let view = this.getView(x)
             if (id == x) {
-                this.getView(x)?.style({"z-index": "3"})
+                if ((view as unknown as ViewsHolderViewInterface) != undefined) {
+                    (view as unknown as ViewsHolderViewInterface).isOnTopViewsHolder = true
+                }
+                view?.style({"z-index": "3"})
             } else {
-                this.getView(x)?.style({"z-index": "1"})
+                if ((view as unknown as ViewsHolderViewInterface) != undefined) {
+                    (view as unknown as ViewsHolderViewInterface).isOnTopViewsHolder = false
+                }
+                view?.style({"z-index": "1"})
             }
         }
         //this.getView(id)?.bringViewToTheTop();

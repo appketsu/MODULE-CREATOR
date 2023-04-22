@@ -13,7 +13,7 @@ import { CurrentLog } from "./currentLog";
 import { JSLogs } from "./jsLogs";
 
 
-class LogsMenuSelectorLayout extends MenuSelectorLayout2 {
+export class LogsMenuSelectorLayout extends MenuSelectorLayout2 {
 
     styleCellsHolder(view:View) {
         view.style({
@@ -24,7 +24,6 @@ class LogsMenuSelectorLayout extends MenuSelectorLayout2 {
             "background-color" : "#262626"
         })
     }
-
 
 }
 
