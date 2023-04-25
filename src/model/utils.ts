@@ -1,5 +1,7 @@
 import {  PointNumber, RectNumber, SizeNumber } from "./interfaces";
 import $ from "jquery";
+import { ModuleNotesManager } from "./moduleNotes/moduleNotesManager";
+import { Module } from "webpack";
 
 
 
@@ -251,4 +253,23 @@ export class Utils {
     }
     return false
   }
+
+  aTagWasClicked(url:string)  {
+    if (url.includes("?noteId=")) {
+      let parsedUrl = new URL(url)
+      let noteId = parsedUrl.searchParams.get("noteId")
+      let line = parsedUrl.searchParams.get("line")
+
+      if (noteId == undefined || line == undefined) {
+        return
+      } 
+      ModuleNotesManager.shared.displayLineOfNote(noteId,line)
+
+    return
+    }
+
+    window.open(url, '_blank');
+
+  }
+
 }

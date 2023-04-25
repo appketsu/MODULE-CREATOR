@@ -126,6 +126,13 @@ export class ModuleNotesManager {
         })
     }
 
+    displayLineOfNote(noteId:string,line:string) {
+        this.openNote(noteId)
+        Array.from(Object.values(this.delegates)).forEach( (del) => {
+            del?.displayLineOfNote?.(noteId,line)
+        })
+    }
+
     closeNote(noteId:string) {
         
         let options = window.mApp.moduleManager.getModuleOptions()

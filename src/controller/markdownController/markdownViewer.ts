@@ -1,12 +1,15 @@
+import { debug } from "webpack";
 import GridElement from "../../model/grid/gridElement";
+import { ModuleNotesInterface } from "../../model/moduleNotes/moduleNotesInterfaces";
+import { ModuleNotesManager } from "../../model/moduleNotes/moduleNotesManager";
 import View from "../../model/view/view";
 import { markdownView } from "../../view/rightViews/markdownView";
 import { MarkdownInterface } from "./markdownInterface";
+import $ from "jquery"
 
 
 
-
-export class MarkdownViewer extends GridElement {
+export class MarkdownViewer extends GridElement implements ModuleNotesInterface {
 
 
     delegate?: MarkdownInterface;
@@ -15,6 +18,7 @@ export class MarkdownViewer extends GridElement {
         super(id,html)
         this.delegate = delegate;
         //this.noteId = noteId;
+        ModuleNotesManager.shared.delegates[this.id] = this
     }
 
     viewWasInserted(): void {
@@ -61,7 +65,8 @@ export class MarkdownViewer extends GridElement {
         if (html != undefined) {
           html.innerHTML = result
           html.querySelectorAll('a').forEach((el) => {
-              el.target = '_blank'
+              el.setAttribute("onClick",`window.mApp.utils.aTagWasClicked("${el.href}")`)
+              el.removeAttribute("href")
           })
         }
     }    
@@ -78,10 +83,31 @@ export class MarkdownViewer extends GridElement {
 
 
     finish(): void {
+      delete ModuleNotesManager.shared.delegates[this.id]
       this.delegate = undefined;
         super.finish()
-        
     }
+
+  displayLineOfNote(noteId: string, line: string): void {
+    let currentNoteId = this.delegate?.getNote()?.noteId ?? ""
+    if (noteId != currentNoteId) {
+      return
+    }
+    let selected = $(`[${this.id}] [data-line=${line}]` )
+    if (selected.length == 0){
+      return
+    }
+    selected[0].scrollIntoView({
+      behavior: "auto",
+      block: "start"
+    })
+    selected[0].scrollIntoView
+    selected.addClass("select-animation")
+    setTimeout(() => {
+      selected.removeClass("select-animation")
+    }, 1000);
+    
+  }
 
 }
 

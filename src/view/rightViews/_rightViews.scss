@@ -155,7 +155,7 @@ position: relative;
     display: grid;
     grid-auto-flow: row;
     grid-template-columns: 1fr;
-    grid-template-rows: min-content 1px auto;
+    grid-template-rows: min-content 1px auto min-content;
     padding: $padding;
     gap: $padding / 2;
 
@@ -192,5 +192,12 @@ position: relative;
     .desc {
 
         
+    }
+
+    .note-id {
+        opacity: 0.5;
+        color: $t-secondary;
+        font-size: map-get($map:$text-size  , $key: "caption-1" );
+        font-weight: map-get($map:$text-weight  , $key: "regular" );
     }
 }

@@ -26,6 +26,7 @@ export class LeftMenuTopController extends View implements ModuleManagerInterfac
     setUp(): this  {
         super.setUp();
         console.log("creating shit")
+
         $(`[${this.id}] .new-button`).off().on('click',  (ev) => {
             ev.preventDefault();
             ev.stopImmediatePropagation();

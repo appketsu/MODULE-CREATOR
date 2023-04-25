@@ -35,8 +35,12 @@ export const markdownToolBarView = `
     
     <div class="tb-separator"> </div>
 
-
     <textarea placeholder="Note description"></textarea>
+
+    <div class="note-id">
+    Note ID: DASFASKDFJAKLSÑFJALÑSD
+    </div>
+
 
     </div>
 

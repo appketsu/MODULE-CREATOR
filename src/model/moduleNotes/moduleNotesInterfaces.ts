@@ -9,6 +9,7 @@ export interface ModuleNotesInterface {
     noteClosed?(noteId:string) : void
     noteCreated?(noteId:string) : void
     noteOpened?(noteId:string) : void
+    displayLineOfNote?(noteId:string,line:string) : void
 }
 
 export interface ModuleNote {

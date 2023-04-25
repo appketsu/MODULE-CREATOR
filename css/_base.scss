@@ -331,6 +331,15 @@ div {
   }
 }
 
+.select-animation {
+  animation: mymove 1s;
+}
+
+@keyframes mymove {
+  from {background-color: $c-accent;}
+  to {background-color: transparent;}
+}
+
 @keyframes spinner-line-fade-more {
     0%, 100% {
       opacity: 0; /* minimum opacity */

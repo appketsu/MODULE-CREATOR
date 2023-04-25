@@ -26,6 +26,7 @@ export class MarkdownToolBar extends GridElement {
         this.updateToolBarButtons()
         let note = this.delegate?.getNote()
         if (note == undefined) {return}
+        $(`[${this.id}] .note-id`).text("Note ID: " + note?.noteId)
         $(`[${this.id}] .title`).val(note?.noteTitle ?? "")
         $(`[${this.id}] textarea`).val(note?.noteDesc ?? "")
         $(`[${this.id}] .title`).off().on('input',(ev) => {
