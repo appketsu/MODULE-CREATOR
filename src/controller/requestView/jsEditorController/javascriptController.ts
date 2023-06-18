@@ -69,6 +69,7 @@ export class JavascriptController extends View {
             theme: "my-theme",
             fontSize: 15,
             fontWeight : "400px",
+            letterSpacing: 0.8,
             lineNumbers: "on",
             roundedSelection: false,
             scrollBeyondLastLine: true,
