@@ -56,3 +56,17 @@ body {
 
 }
 
+
+
+.first-load {
+    display: grid;
+    grid-auto-flow: row;
+    text-align: center;
+    grid-auto-columns: 1fr;
+    grid-auto-rows: min-content;
+    gap: $padding;
+    align-content: center;
+    color: $t-primary;
+    font-size: map-get($map:$text-size  , $key: "subhead" );
+    font-weight: map-get($map:$text-weight  , $key: "regular" );
+}

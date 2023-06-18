@@ -57,6 +57,7 @@ export default class App implements AppInterface {
     }
 
     configApp() {
+        $(".first-load").remove()
         /*$("body").on("contextmenu", function(e) {
             return false;
         });*/
