@@ -43,10 +43,32 @@
     </div>
 
     
-    <script async src="dist/runtime.app.js"></script>
-    <script async src="dist/modules.app.js"></script>
-    <script async src="dist/main.app.js"></script>
+
 
 </body>
+
+<script>
+    async function init() {
+
+        let routes = [
+            "dist/runtime.app.js",
+            "dist/modules.app.js",
+            "dist/main.app.js"
+        ]
+
+        routes.forEach((el) => {
+            let script = document.createElement("script");
+            tag.setAttribute('defer','');
+
+            script.src = el;
+            document.body.append(script);
+        })
+
+    }
+
+    init()
+
+
+</script>
 
 </html>
