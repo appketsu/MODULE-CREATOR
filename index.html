@@ -58,7 +58,7 @@
 
         routes.forEach((el) => {
             let script = document.createElement("script");
-            tag.setAttribute('defer','');
+            script.setAttribute('defer','');
 
             script.src = el;
             document.body.append(script);
