@@ -259,10 +259,10 @@ export class Utils {
       let parsedUrl = new URL(url)
       let noteId = parsedUrl.searchParams.get("noteId")
       let line = parsedUrl.searchParams.get("line")
-
       if (noteId == undefined || line == undefined) {
         return
       } 
+
       ModuleNotesManager.shared.displayLineOfNote(noteId,line)
 
     return
