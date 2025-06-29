@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script>self["MonacoEnvironment"] = (function (paths) {
+          return {
+            globalAPI: false,
+            getWorkerUrl : function (moduleId, label) {
+              var result =  paths[label];
+              if (/^((http:)|(https:)|(file:)|(\/\/))/.test(result)) {
+                var currentUrl = String(window.location);
+                var currentOrigin = currentUrl.substr(0, currentUrl.length - window.location.hash.length - window.location.search.length - window.location.pathname.length);
+                if (result.substring(0, currentOrigin.length) !== currentOrigin) {
+                  var js = '/*' + label + '*/importScripts("' + result + '");';
+                  var blob = new Blob([js], { type: 'application/javascript' });
+                  return URL.createObjectURL(blob);
+                }
+              }
+              return result;
+            }
+          };
+        })({
+  "editorWorkerService": "/test/monacoeditorwork/editor.worker.bundle.js",
+  "css": "/test/monacoeditorwork/css.worker.bundle.js",
+  "html": "/test/monacoeditorwork/html.worker.bundle.js",
+  "json": "/test/monacoeditorwork/json.worker.bundle.js",
+  "typescript": "/test/monacoeditorwork/ts.worker.bundle.js",
+  "javascript": "/test/monacoeditorwork/ts.worker.bundle.js",
+  "less": "/test/monacoeditorwork/css.worker.bundle.js",
+  "scss": "/test/monacoeditorwork/css.worker.bundle.js",
+  "handlebars": "/test/monacoeditorwork/html.worker.bundle.js",
+  "razor": "/test/monacoeditorwork/html.worker.bundle.js"
+});</script>
+
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover,maximum-scale=1.0, user-scalable=0">
+
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Module Development</title>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>-->
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@30,400,0,0" />
+
+
+  <script type="module" crossorigin src="/test/assets/index-CF4ssLPn.js"></script>
+  <link rel="stylesheet" crossorigin href="/test/assets/index-NWhMDO3q.css">
+</head>
+
+<body body>
+
+    <div id="app">
+        <div gridHolder class="app-holder ">
+            <div class="first-load center-flex fill-absolute">
+                <div>Loading Module Creator</div>
+                <div class="center-flex">
+                    <div class="lds-ripple"><div></div><div></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+
+</body>
+
+
+
+</html>
